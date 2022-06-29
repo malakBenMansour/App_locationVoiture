@@ -26,12 +26,14 @@ public class BoiteService {
     }
     public Boite findById(int id)
     {
+
         return $boiterepository.findById(id).orElse(null);
     }
     public void delete(int id)
     {
         $boiterepository.deleteById(id);
     }
+
     public Boite update(Boite b)
     {
         Boite boite = $boiterepository.findById(b.getId()).get();
@@ -39,4 +41,8 @@ public class BoiteService {
         $boiterepository.save(boite);
         return boite;
     }
+
+    public void save(Boite boite)
+    {
+        $boiterepository.save(boite);}
 }

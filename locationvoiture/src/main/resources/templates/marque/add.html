@@ -68,7 +68,7 @@
     <script src="../assets/js/config.js"></script>
 </head>
 
-<th:body>
+<body>
 <!-- Layout wrapper -->
 <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
@@ -174,7 +174,6 @@
 
 
 
-
             </ul>
         </aside>
         <!-- / Menu -->
@@ -272,50 +271,43 @@
                 <!-- Content -->
 
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Tables /</span> Liste Boites</h4>
-                    <div class="box-footer center">
-                        <a th:href="@{/boite/add}">
-                            <button type="button" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add new
-                            </button>
-                        </a>
-                    </div>
-                    <!-- Basic Bootstrap Table -->
-                    <div class="card">
-                        <h5 class="card-header">Liste Boites</h5>
-                        <div class="table-responsive text-nowrap">
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th>Nom Boite</th>
-                                    <th>Actions</th>
-                                </tr>
-                                </thead>
-                                <tbody class="table-border-bottom-0">
-                                <tr th:each="boite : ${boiteList}">
-                                     <td th:text="${boite.nom}"><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Nom</strong></td>
-                                    <td>
-                                        <div class="dropdown">
-                                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                                <i class="bx bx-dots-vertical-rounded"></i>
-                                            </button>
-                                            <div class="dropdown-menu">
+                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Forms/</span> Formulaire d'ajout Marque Modele</h4>
 
-                                                <a href="#" class="btn btn-primary btn-xs purple editView" title="Edit" th:href="@{'/boite/update/' + ${boite.id}}"><i class="fa fa-edit"></i> Edit</a>
-                                        <a href="#" class="btn btn-danger btn-xs purple deleteView" title="Delete" th:href="@{'/boite/delete/' + ${boite.id}}"><i class="fa fa-trash-o"></i> Delete</a>
-
+                    <!-- Basic Layout -->
+                    <div class="row">
+                        <div class="col-xl">
+                            <div class="card mb-4">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0">Ajout Marque</h5>
+                                    <small class="text-muted float-end">Marque</small>
+                                </div>
+                                <div class="card-body">
+                                    <form th:action="@{/marque/save}" th:object="${marque}" method="post" class="form-horizontal">
+                                        <div class="mb-3">
+                                            <label class="form-label" for="basic-icon-default-fullname">Nom</label>
+                                            <div class="input-group input-group-merge">
+                            <span id="basic-icon-default-fullname2" class="input-group-text"
+                            ><i class="bx bx-user"></i
+                            ></span>
+                                                <input
+                                                        th:field="*{nom}"
+                                                        type="text"
+                                                        class="form-control"
+                                                        id="basic-icon-default-fullname"
+                                                        aria-describedby="basic-icon-default-fullname2"
+                                                /> <p class="text-red" th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"></p>
                                             </div>
                                         </div>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+
+                                        <button type="submit" class="btn btn-primary">AJOUT</button>
+                                        <a th:href="@{/marque/all}">
+                                            <button type="button" class="btn btn-primary"><i class="fa fa-right"></i> RETOUR</button>
+                                        </a>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <!--/ Basic Bootstrap Table -->
-
-
-                    <hr class="my-5" />
-
                 </div>
                 <!-- / Content -->
 
@@ -392,5 +384,5 @@
 
 <!-- Place this tag in your head or just before your close body tag. -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>
-</th:body>
+</body>
 </html>

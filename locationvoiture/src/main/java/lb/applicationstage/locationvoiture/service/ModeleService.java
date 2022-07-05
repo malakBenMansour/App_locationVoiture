@@ -1,10 +1,7 @@
 package lb.applicationstage.locationvoiture.service;
 
 
-import lb.applicationstage.locationvoiture.entities.Categorie;
-import lb.applicationstage.locationvoiture.entities.Energie;
-import lb.applicationstage.locationvoiture.entities.Marque;
-import lb.applicationstage.locationvoiture.entities.Modele;
+import lb.applicationstage.locationvoiture.entities.*;
 import lb.applicationstage.locationvoiture.repository.CategorieRepository;
 import lb.applicationstage.locationvoiture.repository.EnergieRepository;
 import lb.applicationstage.locationvoiture.repository.MarqueRepository;
@@ -71,7 +68,11 @@ public void delete(int id)
 {
     modeleRepository.deleteById(id);
 }
-
+    public void ajout(Modele a)
+    {
+        modeleRepository.save(a);
+        //return a;
+    }
 
 
 

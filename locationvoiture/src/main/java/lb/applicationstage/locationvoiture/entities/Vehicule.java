@@ -88,4 +88,15 @@ private String matricule;
     public void setModele(Modele modele) {
         this.modele = modele;
     }
+    @JsonIgnore
+    @ManyToOne
+    private Boite boite;
+
+    public Boite getBoite() {
+        return boite;
+    }
+
+    public void setBoite(Boite boite) {
+        this.boite = boite;
+    }
 }

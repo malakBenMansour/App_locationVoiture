@@ -1,5 +1,6 @@
 package lb.applicationstage.locationvoiture.service;
 
+import lb.applicationstage.locationvoiture.entities.Categorie;
 import lb.applicationstage.locationvoiture.entities.Energie;
 import lb.applicationstage.locationvoiture.entities.Marque;
 import lb.applicationstage.locationvoiture.entities.Modele;
@@ -23,8 +24,11 @@ public class EnergieService {
 
     public Energie add(Energie e)
     {
+
         return $energieRepository.save(e);
     }
+
+
     public List<Energie> afficher()
     {
         return (List<Energie>) $energieRepository.findAll();
@@ -34,10 +38,12 @@ public class EnergieService {
     {
         return  $energieRepository.findById(id).orElse(null);
     }
+
     public void delete(int id)
     {
         $energieRepository.deleteById(id);
     }
+
     public Energie update(Energie e)
     {
         Energie energie=$energieRepository.findById(e.getId()).get();
@@ -46,6 +52,7 @@ public class EnergieService {
         return energie;
 
     }
+
     public void assignModeletoEnergie(int idModele, int idEnergie) {
         Modele a = modeleRepository.findById(idModele).orElse(null);
         Energie s = $energieRepository.findById(idEnergie).orElse(null);

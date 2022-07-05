@@ -51,6 +51,11 @@ public class AgenceService {
     public List<Agence> FindByIdSociete(int idSociete) {
         return (List<Agence>) $agencerepository.findByIdSociete(idSociete);
     }
+    public void ajout(Agence a)
+    {
+        $agencerepository.save(a);
+        //return a;
+    }
 }
 
 

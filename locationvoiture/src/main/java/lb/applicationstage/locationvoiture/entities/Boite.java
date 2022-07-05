@@ -1,7 +1,11 @@
 package lb.applicationstage.locationvoiture.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
+
 @Entity
 public class Boite implements Serializable {
 @Id
@@ -31,5 +35,17 @@ public Boite(){}
 
     public void setNom(String nom) {
         this.nom = nom;
+    }
+
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy="boite")
+    private List<Vehicule> ListVehicule;
+
+    public List<Vehicule> getListVehicule() {
+        return ListVehicule;
+    }
+
+    public void setListVehicule(List<Vehicule> listVehicule) {
+        ListVehicule = listVehicule;
     }
 }

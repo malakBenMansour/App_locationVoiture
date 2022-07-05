@@ -1,6 +1,7 @@
 package lb.applicationstage.locationvoiture.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -76,7 +77,12 @@ public class Agence implements Serializable {
         this.societe = societe;
     }
 
+
     @JsonIgnore
     @ManyToOne
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Societe societe;
+
+
+
 }

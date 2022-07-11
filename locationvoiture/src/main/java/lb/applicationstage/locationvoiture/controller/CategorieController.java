@@ -69,11 +69,18 @@ public class CategorieController {
 
      */
     @GetMapping("/all")
-    public String afficher(Model model)
+    public String afficher(Model model,String keyword)
     {
-        List<Categorie> categories=categorieService.afficher();
-        model.addAttribute("categories",categories);
 
+        if(keyword!=null)
+        {
+            model.addAttribute("categories", categorieService.findbyName(keyword));
+        }
+        else {
+
+            List<Categorie> categories = categorieService.afficher();
+            model.addAttribute("categories", categories);
+        }
         return list_template;
     }
     @GetMapping("/add")
@@ -92,7 +99,7 @@ public class CategorieController {
         }
         categorieService.add(categorie);
 
-        return afficher(model);
+        return list_redirect;
     }
 
     @GetMapping("/delete/{id}")

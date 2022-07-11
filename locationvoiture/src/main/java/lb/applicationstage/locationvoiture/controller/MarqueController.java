@@ -71,11 +71,16 @@ public class MarqueController {
      */
 
     @GetMapping("/all")
-    public String afficher(Model model)
+    public String afficher(Model model,String keyword)
     {
-        List<Marque> marques=$marqueService.afficher();
-        model.addAttribute("marques",marques);
-
+        if(keyword!=null)
+        {
+            model.addAttribute("marques", $marqueService.findbyName(keyword));
+        }
+        else {
+            List<Marque> marques = $marqueService.afficher();
+            model.addAttribute("marques", marques);
+        }
         return list_template;
     }
     @GetMapping("/add")
@@ -93,7 +98,7 @@ public class MarqueController {
         }
         $marqueService.add(marque);
 
-        return afficher(model);
+        return list_redirect;
     }
 
 

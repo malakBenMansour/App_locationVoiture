@@ -56,6 +56,10 @@ public class AgenceService {
         $agencerepository.save(a);
         //return a;
     }
+    public List<Agence> findbyName(String nom)
+    {
+        return (List<Agence>) $agencerepository.findbynom(nom);
+    }
 }
 
 

@@ -126,14 +126,20 @@ public List<Agence> findByIdSociete(@PathVariable int idSociete)
     }
 
     @GetMapping("/all")
-    public String all(Model model) {
+    public String all(Model model,String keyword) {
          List<Societe> societes = societeService.afficher();
 
          model.addAttribute("societes",societes);
+        if(keyword!=null)
+        {
+            model.addAttribute("agence", $agenceService.findbyName(keyword));
+        }
+        else {
 
-        List<Agence> agence = $agenceService.afficher();
+            List<Agence> agence = $agenceService.afficher();
 
-        model.addAttribute("agence", agence);
+            model.addAttribute("agence", agence);
+        }
 
         return "agence/list";
     }

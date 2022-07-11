@@ -2,6 +2,7 @@ package lb.applicationstage.locationvoiture.service;
 
 import lb.applicationstage.locationvoiture.entities.Boite;
 import lb.applicationstage.locationvoiture.entities.Modele;
+import lb.applicationstage.locationvoiture.entities.Societe;
 import lb.applicationstage.locationvoiture.entities.Vehicule;
 import lb.applicationstage.locationvoiture.repository.BoiteRepository;
 import lb.applicationstage.locationvoiture.repository.ModeleRepository;
@@ -67,4 +68,8 @@ public Vehicule ajout (Vehicule v)
     vehiculeRepository.save(v);
     return v;
 }
+    public List<Vehicule> findbyName(String nom)
+    {
+        return (List<Vehicule>) vehiculeRepository.findbynom(nom);
+    }
 }

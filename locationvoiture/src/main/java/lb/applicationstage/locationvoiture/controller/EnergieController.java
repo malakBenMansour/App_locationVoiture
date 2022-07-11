@@ -73,10 +73,16 @@ public Energie update(@RequestBody Energie e)
 
 
     @GetMapping("/all")
-    public String afficher(Model model)
+    public String afficher(Model model,String keyword)
+    {    if(keyword!=null)
     {
+        model.addAttribute("energie", $energieService.findbyName(keyword));
+    }
+    else {
+
+
         List<Energie> energie=$energieService.afficher();
-        model.addAttribute("energie",energie);
+        model.addAttribute("energie",energie);}
 
         return list_template;
     }
@@ -96,7 +102,7 @@ public Energie update(@RequestBody Energie e)
         }
         $energieService.add(energie);
 
-        return afficher(model);
+        return list_redirect;
     }
 
     @GetMapping("/delete/{id}")

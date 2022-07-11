@@ -323,6 +323,15 @@
                             </button>
                         </a>
                     </div>
+
+                    <div class="col-sm-4">
+
+                        <form th:action="@{/boite/all}" method="get">
+                            <input id="serach" type="text" name="keyword">
+                            <button type="submit">Recherche</button>
+
+                        </form>
+                    </div>
                     <!-- Basic Bootstrap Table -->
                     <div class="card">
                         <h5 class="card-header">Liste Boites</h5>

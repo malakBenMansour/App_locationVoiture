@@ -324,7 +324,19 @@
                                 </button>
                             </a>
                         </div>
-                        <!-- Basic Bootstrap Table -->
+                        <div class="col-sm-4">
+
+                            <form th:action="@{/societe/all}" method="get">
+                                <input id="serach" type="text" name="keyword">
+                                <button type="submit">Recherche</button>
+
+                            </form>
+                        </div>
+
+
+
+
+                                <!-- Basic Bootstrap Table -->
                         <div class="card">
                             <h5 class="card-header">Liste Societes</h5>
                             <div class="table-responsive text-nowrap">

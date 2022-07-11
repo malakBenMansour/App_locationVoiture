@@ -54,4 +54,8 @@ public Marque update(Marque m)
         s.setListModele(null);
         $marqueRepository.save(s);
     }
+    public List<Marque> findbyName(String nom)
+    {
+        return (List<Marque>) $marqueRepository.findbynom(nom);
+    }
 }

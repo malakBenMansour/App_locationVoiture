@@ -1,6 +1,7 @@
 package lb.applicationstage.locationvoiture.service;
 
 import lb.applicationstage.locationvoiture.entities.Boite;
+import lb.applicationstage.locationvoiture.entities.Societe;
 import lb.applicationstage.locationvoiture.repository.BoiteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,4 +46,9 @@ public class BoiteService {
     public void save(Boite boite)
     {
         $boiterepository.save(boite);}
+
+    public List<Boite> findbyName(String nom)
+    {
+        return (List<Boite>) $boiterepository.findbynom(nom);
+    }
 }

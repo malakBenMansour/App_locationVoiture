@@ -3,6 +3,7 @@ package lb.applicationstage.locationvoiture.service;
 import lb.applicationstage.locationvoiture.entities.Categorie;
 import lb.applicationstage.locationvoiture.entities.Energie;
 import lb.applicationstage.locationvoiture.entities.Modele;
+import lb.applicationstage.locationvoiture.entities.Societe;
 import lb.applicationstage.locationvoiture.repository.CategorieRepository;
 import lb.applicationstage.locationvoiture.repository.ModeleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,5 +53,10 @@ private final CategorieRepository $categorierepo;
         Categorie s = $categorierepo.findById(idCategorie).orElse(null);
         s.setListModele(null);
         $categorierepo.save(s);
+    }
+
+    public List<Categorie> findbyName(String nom)
+    {
+        return (List<Categorie>) $categorierepo.findbynom(nom);
     }
 }

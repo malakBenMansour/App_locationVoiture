@@ -57,4 +57,10 @@ public class SocieteService {
         s.setListAgence(null);
         societerepo.save(s);
     }
+
+    public List<Societe> findbyName(String nom)
+    {
+     return (List<Societe>) societerepo.findbynom(nom);
+    }
 }
+

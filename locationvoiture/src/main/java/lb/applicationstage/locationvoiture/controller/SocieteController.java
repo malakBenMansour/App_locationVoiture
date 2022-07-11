@@ -18,13 +18,14 @@ import java.util.List;
 @CrossOrigin("*")
 public class SocieteController {
 
-        @Autowired
-        SocieteService societeService;
+    @Autowired
+    SocieteService societeService;
 
-    private String add_template="societe/add";
-    private String list_template="societe/list";
-    private String list_redirect="redirect:/societe/all";
-    private String edit_template="redirect:/societe/edit";
+    private String add_template = "societe/add";
+    private String list_template = "societe/list";
+    private String list_redirect = "redirect:/societe/all";
+    private String edit_template = "redirect:/societe/edit";
+    private String list_recherche = "redirect:/societe/recherche";
 
         /*
 
@@ -69,72 +70,91 @@ public class SocieteController {
 
 
     /*
-             **************** CRUD + TEMPLATE *******************
+     **************** CRUD + TEMPLATE *******************
 
      */
 
     @GetMapping("/all")
-    public String afficher(Model model)
-    {
-        List<Societe> societe=societeService.afficher();
-        model.addAttribute("societe",societe);
+    public String afficher(Model model,String keyword) {
 
+  if(keyword!=null)
+  {
+      model.addAttribute("societe", societeService.findbyName(keyword));
+  }
+else {
+
+
+      List<Societe> societe = societeService.afficher();
+      model.addAttribute("societe", societe);
+  }
         return list_template;
     }
+
     @GetMapping("/add")
-    public String add(Societe societe, Model model){
+    public String add(Societe societe, Model model) {
         model.addAttribute("societe", societe);
         return add_template;
     }
 
 
     @PostMapping("/save")
-    public String save(@Validated @ModelAttribute("societe") Societe societe, BindingResult result, Model model){
+    public String save(@Validated @ModelAttribute("societe") Societe societe, BindingResult result, Model model) {
         model.addAttribute("societe", societe);
 
-        if(result.hasErrors()){
+        if (result.hasErrors()) {
             return add_template;
         }
         societeService.addSociete(societe);
 
-        return afficher(model);
+        return list_redirect;
     }
 
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable int id,Model model)
-    {
+    public String delete(@PathVariable int id, Model model) {
         societeService.supprimer(id);
         return list_redirect;
     }
+
     /*
     Partie Update
      */
     @GetMapping("/find/{id}")
-    public String findById(@PathVariable int id,Model model)
-    {
-        Societe societe=societeService.findSocietebyID(id);
+    public String findById(@PathVariable int id, Model model) {
+        Societe societe = societeService.findSocietebyID(id);
         model.addAttribute("societe", societe);
         return edit_template;
     }
 
 
     @GetMapping("/update/{id}")
-    public String update(@PathVariable int id, Model model){
+    public String update(@PathVariable int id, Model model) {
         Societe societe = societeService.findSocietebyID(id);
 
         model.addAttribute("societe", societe);
 
-        return  "societe/edit";
+        return "societe/edit";
     }
 
     @PostMapping("/edit")
-    public String edit(@Validated @ModelAttribute("societe") Societe societe ,BindingResult result, Model model){
+    public String edit(@Validated @ModelAttribute("societe") Societe societe, BindingResult result, Model model) {
 
         societeService.modifier(societe);
 
         return list_redirect;
     }
+/*
 
+Recerche
+ */
+
+    @GetMapping("/search")
+    public String recherche(@ModelAttribute("keyword") Societe societe, Model model) {
+        String keyword="";
+        model.addAttribute("keyword", keyword);
+       List<Societe>  societes=societeService.findbyName(keyword);
+        model.addAttribute("societe", societes);
+
+        return list_template;
+    }
 
 }
-

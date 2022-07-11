@@ -125,7 +125,7 @@ public class VehiculeController {
     }
 
     @GetMapping("/all")
-    public String all(Model model) {
+    public String all(Model model,String keyword) {
         List<Modele> modeles = modeleService.afficher();
         model.addAttribute("modeles", modeles);
 
@@ -134,11 +134,16 @@ public class VehiculeController {
         model.addAttribute("boites", boites);
 
 
+        if(keyword!=null)
+        {
+            model.addAttribute("vehicule", vehiculeService.findbyName(keyword));
+        }
+        else {
 
-        List<Vehicule> vehicule = vehiculeService.afficher();
+            List<Vehicule> vehicule = vehiculeService.afficher();
 
-        model.addAttribute("vehicule", vehicule);
-
+            model.addAttribute("vehicule", vehicule);
+        }
         return "vehicule/list";
     }
 

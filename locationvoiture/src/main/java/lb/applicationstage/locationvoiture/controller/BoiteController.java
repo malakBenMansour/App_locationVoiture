@@ -45,11 +45,16 @@ public List<Boite>all()
 
 /* Rectification CRUD template */
 @GetMapping("/all")
-public String afficher(Model model)
+public String afficher(Model model,String keyword)
+{  if(keyword!=null)
 {
-    List<Boite> boiteList=$boiteservice.afficher();
-    model.addAttribute("boiteList",boiteList);
+    model.addAttribute("boiteList", $boiteservice.findbyName(keyword));
+}
+else {
 
+    List<Boite> boiteList = $boiteservice.afficher();
+    model.addAttribute("boiteList", boiteList);
+}
     return "boite/boitelist";
 }
 
@@ -100,7 +105,7 @@ public String afficher(Model model)
         }
         $boiteservice.save(boite);
 
-        return afficher(model);
+        return list_redirect;
     }
 
     @GetMapping("/delete/{id}")

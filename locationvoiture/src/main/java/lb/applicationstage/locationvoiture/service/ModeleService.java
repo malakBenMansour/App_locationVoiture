@@ -74,6 +74,10 @@ public void delete(int id)
         //return a;
     }
 
+    public List<Modele> findbyName(String nom)
+    {
+        return (List<Modele>) modeleRepository.findbynom(nom);
+    }
 
 
 

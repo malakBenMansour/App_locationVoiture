@@ -138,7 +138,7 @@ public class ModeleController {
     }
 
     @GetMapping("/all")
-    public String all(Model model) {
+    public String all(Model model,String keyword) {
         List<Energie> energies = energieService.afficher();
         model.addAttribute("energies", energies);
         List<Categorie> categories = categorieService.afficher();
@@ -146,11 +146,16 @@ public class ModeleController {
         List<Marque> marques = marqueService.afficher();
         model.addAttribute("marques", marques);
 
+        if(keyword!=null)
+        {
+            model.addAttribute("modele", modeleService.findbyName(keyword));
+        }
+        else {
 
-        List<Modele> modele = modeleService.afficher();
+            List<Modele> modele = modeleService.afficher();
 
-        model.addAttribute("modele", modele);
-
+            model.addAttribute("modele", modele);
+        }
         return "modele/list";
     }
 

@@ -4,6 +4,10 @@ import lb.applicationstage.locationvoiture.entities.Agence;
 import lb.applicationstage.locationvoiture.repository.AgenceRepository;
 import lb.applicationstage.locationvoiture.repository.SocieteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import lb.applicationstage.locationvoiture.entities.Societe;
 import java.util.List;
@@ -61,6 +65,14 @@ public class SocieteService {
     public List<Societe> findbyName(String nom)
     {
      return (List<Societe>) societerepo.findbynom(nom);
+    }
+
+    public Page<Societe> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection) {
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
+                Sort.by(sortField).descending();
+
+        Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
+        return societerepo.findAll(pageable);
     }
 }
 

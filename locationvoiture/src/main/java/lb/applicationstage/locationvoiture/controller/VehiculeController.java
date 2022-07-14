@@ -5,6 +5,7 @@ import lb.applicationstage.locationvoiture.service.BoiteService;
 import lb.applicationstage.locationvoiture.service.ModeleService;
 import lb.applicationstage.locationvoiture.service.VehiculeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -126,7 +127,7 @@ public class VehiculeController {
 
     @GetMapping("/all")
     public String all(Model model,String keyword) {
-        List<Modele> modeles = modeleService.afficher();
+       /* List<Modele> modeles = modeleService.afficher();
         model.addAttribute("modeles", modeles);
 
 
@@ -144,8 +145,55 @@ public class VehiculeController {
 
             model.addAttribute("vehicule", vehicule);
         }
-        return "vehicule/list";
+        return "vehicule/list";*/
+        return findPaginated(1, "nom", "asc", model,keyword);
+
     }
+
+
+    @GetMapping("/page/{pageNo}")
+    public String findPaginated(@PathVariable (value = "pageNo") int pageNo,
+                                @RequestParam("sortField") String sortField,
+                                @RequestParam("sortDir") String sortDir,
+                                Model model,String keyword) {
+        int pageSize = 5;
+
+        Page<Vehicule> page = vehiculeService.findPaginated(pageNo, pageSize, sortField, sortDir);
+        List<Vehicule> listEmployees = page.getContent();
+        List<Modele> modeles = modeleService.afficher();
+        model.addAttribute("modeles", modeles);
+
+
+        List<Boite> boites = boiteService.afficher();
+        model.addAttribute("boites", boites);
+
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+        if(keyword!=null)
+        {
+            model.addAttribute("vehicule", vehiculeService.findbyName(keyword));
+        }
+        else {
+            //List<Marque> marques = $marqueService.afficher();
+            model.addAttribute("vehicule", listEmployees);
+        }
+
+        return list_template;
+    }
+
+
+
+
+
+
+
+
+
 
     @PostMapping("/edit")
     public String edit(@Validated @ModelAttribute("vehicule") Vehicule vehicule, BindingResult result, Model model) {

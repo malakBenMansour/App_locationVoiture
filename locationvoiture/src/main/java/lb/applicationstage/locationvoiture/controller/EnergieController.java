@@ -1,10 +1,13 @@
 package lb.applicationstage.locationvoiture.controller;
 
 
+import lb.applicationstage.locationvoiture.entities.Agence;
 import lb.applicationstage.locationvoiture.entities.Categorie;
 import lb.applicationstage.locationvoiture.entities.Energie;
+import lb.applicationstage.locationvoiture.entities.Societe;
 import lb.applicationstage.locationvoiture.service.EnergieService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -74,7 +77,7 @@ public Energie update(@RequestBody Energie e)
 
     @GetMapping("/all")
     public String afficher(Model model,String keyword)
-    {    if(keyword!=null)
+    {  /*  if(keyword!=null)
     {
         model.addAttribute("energie", $energieService.findbyName(keyword));
     }
@@ -84,7 +87,9 @@ public Energie update(@RequestBody Energie e)
         List<Energie> energie=$energieService.afficher();
         model.addAttribute("energie",energie);}
 
-        return list_template;
+        return list_template;*/
+        return findPaginated(1, "nom", "asc", model,keyword);
+
     }
     @GetMapping("/add")
     public String add(Energie energie, Model model){
@@ -142,6 +147,34 @@ public Energie update(@RequestBody Energie e)
         $energieService.update(energie);
 
         return list_redirect;
+    }
+    @GetMapping("/page/{pageNo}")
+    public String findPaginated(@PathVariable (value = "pageNo") int pageNo,
+                                @RequestParam("sortField") String sortField,
+                                @RequestParam("sortDir") String sortDir,
+                                Model model,String keyword) {
+        int pageSize = 5;
+
+        Page<Energie> page = $energieService.findPaginated(pageNo, pageSize, sortField, sortDir);
+        List<Energie> listEmployees = page.getContent();
+
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+        if(keyword!=null)
+        {
+            model.addAttribute("energie", $energieService.findbyName(keyword));
+        }
+        else {
+            //List<Marque> marques = $marqueService.afficher();
+            model.addAttribute("energie", listEmployees);
+        }
+
+        return list_template;
     }
 
 

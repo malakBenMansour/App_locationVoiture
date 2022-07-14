@@ -1,9 +1,12 @@
 package lb.applicationstage.locationvoiture.controller;
 
 
+import lb.applicationstage.locationvoiture.entities.Agence;
 import lb.applicationstage.locationvoiture.entities.Boite;
+import lb.applicationstage.locationvoiture.entities.Societe;
 import lb.applicationstage.locationvoiture.service.BoiteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -46,7 +49,7 @@ public List<Boite>all()
 /* Rectification CRUD template */
 @GetMapping("/all")
 public String afficher(Model model,String keyword)
-{  if(keyword!=null)
+{ /* if(keyword!=null)
 {
     model.addAttribute("boiteList", $boiteservice.findbyName(keyword));
 }
@@ -55,7 +58,10 @@ else {
     List<Boite> boiteList = $boiteservice.afficher();
     model.addAttribute("boiteList", boiteList);
 }
-    return "boite/boitelist";
+    return "boite/boitelist";*/
+
+    return findPaginated(1, "nom", "asc", model,keyword);
+
 }
 
     @GetMapping("/add")
@@ -114,4 +120,36 @@ else {
         $boiteservice.delete(id);
        return list_redirect;
     }
+
+    @GetMapping("/page/{pageNo}")
+    public String findPaginated(@PathVariable (value = "pageNo") int pageNo,
+                                @RequestParam("sortField") String sortField,
+                                @RequestParam("sortDir") String sortDir,
+                                Model model,String keyword) {
+        int pageSize = 5;
+
+        Page<Boite> page = $boiteservice.findPaginated(pageNo, pageSize, sortField, sortDir);
+        List<Boite> listEmployees = page.getContent();
+
+
+
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+        if(keyword!=null)
+        {
+            model.addAttribute("boiteList", $boiteservice.findbyName(keyword));
+        }
+        else {
+            //List<Marque> marques = $marqueService.afficher();
+            model.addAttribute("boiteList", listEmployees);
+        }
+
+        return list_template;
+    }
+
 }

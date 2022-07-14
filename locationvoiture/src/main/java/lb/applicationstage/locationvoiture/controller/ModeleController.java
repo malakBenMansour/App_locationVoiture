@@ -7,6 +7,7 @@ import lb.applicationstage.locationvoiture.service.EnergieService;
 import lb.applicationstage.locationvoiture.service.MarqueService;
 import lb.applicationstage.locationvoiture.service.ModeleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -139,7 +140,7 @@ public class ModeleController {
 
     @GetMapping("/all")
     public String all(Model model,String keyword) {
-        List<Energie> energies = energieService.afficher();
+       /* List<Energie> energies = energieService.afficher();
         model.addAttribute("energies", energies);
         List<Categorie> categories = categorieService.afficher();
         model.addAttribute("categories", categories);
@@ -156,7 +157,9 @@ public class ModeleController {
 
             model.addAttribute("modele", modele);
         }
-        return "modele/list";
+        return "modele/list";*/
+        return findPaginated(1, "nom", "asc", model,keyword);
+
     }
 
     @PostMapping("/edit")
@@ -169,5 +172,37 @@ public class ModeleController {
 
         return list_redirect;
     }
+    @GetMapping("/page/{pageNo}")
+    public String findPaginated(@PathVariable (value = "pageNo") int pageNo,
+                                @RequestParam("sortField") String sortField,
+                                @RequestParam("sortDir") String sortDir,
+                                Model model,String keyword) {
+        int pageSize = 5;
 
+        Page<Modele> page = modeleService.findPaginated(pageNo, pageSize, sortField, sortDir);
+        List<Modele> listEmployees = page.getContent();
+        List<Energie> energies = energieService.afficher();
+        model.addAttribute("energies", energies);
+        List<Categorie> categories = categorieService.afficher();
+        model.addAttribute("categories", categories);
+        List<Marque> marques = marqueService.afficher();
+        model.addAttribute("marques", marques);
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+        if(keyword!=null)
+        {
+            model.addAttribute("modele", modeleService.findbyName(keyword));
+        }
+        else {
+            //List<Marque> marques = $marqueService.afficher();
+            model.addAttribute("modele", listEmployees);
+        }
+
+        return list_template;
+    }
 }

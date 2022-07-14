@@ -4,6 +4,7 @@ import lb.applicationstage.locationvoiture.entities.Boite;
 import lb.applicationstage.locationvoiture.entities.Marque;
 import lb.applicationstage.locationvoiture.service.MarqueService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -73,7 +74,7 @@ public class MarqueController {
     @GetMapping("/all")
     public String afficher(Model model,String keyword)
     {
-        if(keyword!=null)
+      /*  if(keyword!=null)
         {
             model.addAttribute("marques", $marqueService.findbyName(keyword));
         }
@@ -82,6 +83,8 @@ public class MarqueController {
             model.addAttribute("marques", marques);
         }
         return list_template;
+        */
+        return findPaginated(1, "nom", "asc", model,keyword);
     }
     @GetMapping("/add")
     public String add(Marque marque, Model model){
@@ -142,7 +145,34 @@ public class MarqueController {
         return list_redirect;
     }
 
+    @GetMapping("/page/{pageNo}")
+    public String findPaginated(@PathVariable (value = "pageNo") int pageNo,
+                                @RequestParam("sortField") String sortField,
+                                @RequestParam("sortDir") String sortDir,
+                                Model model,String keyword) {
+        int pageSize = 5;
 
+        Page<Marque> page = $marqueService.findPaginated(pageNo, pageSize, sortField, sortDir);
+        List<Marque> listEmployees = page.getContent();
+
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+        if(keyword!=null)
+        {
+            model.addAttribute("marques", $marqueService.findbyName(keyword));
+        }
+        else {
+            //List<Marque> marques = $marqueService.afficher();
+            model.addAttribute("marques", listEmployees);
+        }
+
+        return list_template;
+    }
 
 }
 

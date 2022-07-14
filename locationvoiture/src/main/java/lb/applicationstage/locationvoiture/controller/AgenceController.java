@@ -3,10 +3,12 @@ package lb.applicationstage.locationvoiture.controller;
 
 import lb.applicationstage.locationvoiture.entities.Agence;
 import lb.applicationstage.locationvoiture.entities.Energie;
+import lb.applicationstage.locationvoiture.entities.Marque;
 import lb.applicationstage.locationvoiture.entities.Societe;
 import lb.applicationstage.locationvoiture.service.AgenceService;
 import lb.applicationstage.locationvoiture.service.SocieteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -127,7 +129,7 @@ public List<Agence> findByIdSociete(@PathVariable int idSociete)
 
     @GetMapping("/all")
     public String all(Model model,String keyword) {
-         List<Societe> societes = societeService.afficher();
+        /* List<Societe> societes = societeService.afficher();
 
          model.addAttribute("societes",societes);
         if(keyword!=null)
@@ -141,7 +143,8 @@ public List<Agence> findByIdSociete(@PathVariable int idSociete)
             model.addAttribute("agence", agence);
         }
 
-        return "agence/list";
+        return "agence/list";*/
+        return findPaginated(1, "nom", "asc", model,keyword);
     }
 
     @PostMapping("/edit")
@@ -154,4 +157,36 @@ public List<Agence> findByIdSociete(@PathVariable int idSociete)
 
         return list_redirect;
     }
+
+    @GetMapping("/page/{pageNo}")
+    public String findPaginated(@PathVariable (value = "pageNo") int pageNo,
+                                @RequestParam("sortField") String sortField,
+                                @RequestParam("sortDir") String sortDir,
+                                Model model,String keyword) {
+        int pageSize = 5;
+
+        Page<Agence> page = $agenceService.findPaginated(pageNo, pageSize, sortField, sortDir);
+        List<Agence> listEmployees = page.getContent();
+        List<Societe> societes = societeService.afficher();
+
+        model.addAttribute("societes",societes);
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+        if(keyword!=null)
+        {
+            model.addAttribute("agence", $agenceService.findbyName(keyword));
+        }
+        else {
+            //List<Marque> marques = $marqueService.afficher();
+            model.addAttribute("agence", listEmployees);
+        }
+
+        return list_template;
+    }
+
 }

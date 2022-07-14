@@ -1,10 +1,12 @@
 package lb.applicationstage.locationvoiture.controller;
 
 
+import lb.applicationstage.locationvoiture.entities.Agence;
 import lb.applicationstage.locationvoiture.entities.Categorie;
 import lb.applicationstage.locationvoiture.entities.Societe;
 import lb.applicationstage.locationvoiture.service.SocieteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -77,7 +79,7 @@ public class SocieteController {
     @GetMapping("/all")
     public String afficher(Model model,String keyword) {
 
-  if(keyword!=null)
+  /*if(keyword!=null)
   {
       model.addAttribute("societe", societeService.findbyName(keyword));
   }
@@ -87,7 +89,9 @@ else {
       List<Societe> societe = societeService.afficher();
       model.addAttribute("societe", societe);
   }
-        return list_template;
+        return list_template;*/
+        return findPaginated(1, "nom", "asc", model,keyword);
+
     }
 
     @GetMapping("/add")
@@ -157,4 +161,33 @@ Recerche
         return list_template;
     }
 
+
+    @GetMapping("/page/{pageNo}")
+    public String findPaginated(@PathVariable (value = "pageNo") int pageNo,
+                                @RequestParam("sortField") String sortField,
+                                @RequestParam("sortDir") String sortDir,
+                                Model model,String keyword) {
+        int pageSize = 5;
+
+        Page<Societe> page = societeService.findPaginated(pageNo, pageSize, sortField, sortDir);
+        List<Societe> listEmployees = page.getContent();
+
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+        if(keyword!=null)
+        {
+            model.addAttribute("societe", societeService.findbyName(keyword));
+        }
+        else {
+            //List<Marque> marques = $marqueService.afficher();
+            model.addAttribute("societe", listEmployees);
+        }
+
+        return list_template;
+    }
 }

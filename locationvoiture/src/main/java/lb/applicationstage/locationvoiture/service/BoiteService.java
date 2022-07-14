@@ -1,9 +1,14 @@
 package lb.applicationstage.locationvoiture.service;
 
+import lb.applicationstage.locationvoiture.entities.Agence;
 import lb.applicationstage.locationvoiture.entities.Boite;
 import lb.applicationstage.locationvoiture.entities.Societe;
 import lb.applicationstage.locationvoiture.repository.BoiteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -50,5 +55,13 @@ public class BoiteService {
     public List<Boite> findbyName(String nom)
     {
         return (List<Boite>) $boiterepository.findbynom(nom);
+    }
+
+    public Page<Boite> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection) {
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
+                Sort.by(sortField).descending();
+
+        Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
+        return $boiterepository.findAll(pageable);
     }
 }

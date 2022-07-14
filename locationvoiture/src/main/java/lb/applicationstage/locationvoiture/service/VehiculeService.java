@@ -1,13 +1,14 @@
 package lb.applicationstage.locationvoiture.service;
 
-import lb.applicationstage.locationvoiture.entities.Boite;
-import lb.applicationstage.locationvoiture.entities.Modele;
-import lb.applicationstage.locationvoiture.entities.Societe;
-import lb.applicationstage.locationvoiture.entities.Vehicule;
+import lb.applicationstage.locationvoiture.entities.*;
 import lb.applicationstage.locationvoiture.repository.BoiteRepository;
 import lb.applicationstage.locationvoiture.repository.ModeleRepository;
 import lb.applicationstage.locationvoiture.repository.VehiculeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 import sun.text.normalizer.VersionInfo;
@@ -68,8 +69,17 @@ public Vehicule ajout (Vehicule v)
     vehiculeRepository.save(v);
     return v;
 }
-    public List<Vehicule> findbyName(String nom)
+ public List<Vehicule> findbyName(String nom)
     {
         return (List<Vehicule>) vehiculeRepository.findbynom(nom);
     }
+
+    public Page<Vehicule> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection) {
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
+                Sort.by(sortField).descending();
+
+        Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
+        return vehiculeRepository.findAll(pageable);
+    }
+
 }

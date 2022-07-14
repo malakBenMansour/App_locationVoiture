@@ -1,12 +1,13 @@
 package lb.applicationstage.locationvoiture.service;
 
-import lb.applicationstage.locationvoiture.entities.Categorie;
-import lb.applicationstage.locationvoiture.entities.Energie;
-import lb.applicationstage.locationvoiture.entities.Modele;
-import lb.applicationstage.locationvoiture.entities.Societe;
+import lb.applicationstage.locationvoiture.entities.*;
 import lb.applicationstage.locationvoiture.repository.CategorieRepository;
 import lb.applicationstage.locationvoiture.repository.ModeleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 
@@ -59,4 +60,13 @@ private final CategorieRepository $categorierepo;
     {
         return (List<Categorie>) $categorierepo.findbynom(nom);
     }
+
+    public Page<Categorie> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection) {
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
+                Sort.by(sortField).descending();
+
+        Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
+        return $categorierepo.findAll(pageable);
+    }
+
 }

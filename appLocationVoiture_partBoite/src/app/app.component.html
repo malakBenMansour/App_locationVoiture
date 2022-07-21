@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+    <!-- Links -->
+    <ul class="navbar-nav">
+      
+    
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Gestion Boites</a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" routerLink="boites" class="nav-link" routerLinkActive="active"></a>Liste Boite</li>
+          
+          <li><a  class="dropdown-item" routerLink="add" class="nav-link" routerLinkActive="active" ></a>Ajouter une boite</li>
+         
+        </ul>
+      </li>
+
+      
+    </ul>
+  </nav>
+  
+  
+  <div class="container">
+    <br>
+    <h2 style="text-align: center;">{{title}}</h2>
+    <hr>  
+    <div class="card">
+      <div class="card-body">
+    <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+  
+  <footer class="footer">
+    <div class="container">
+     
+    </div>
+  </footer>

@@ -1,0 +1,40 @@
+<h3>Ajouter nouvelle Societe </h3>
+<div [hidden]="submitted" style="width: 400px;">
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="nom"> Nom</label>
+      <input type="text" class="form-control" id="nom" required [(ngModel)]="employee.nom" name="nom">
+    </div>
+
+    <div class="form-group">
+        <label for="exampleFormControlTextarea1" class="form-label">Adresse</label>
+        <input type="text" class="form-control" id="adresse" required [(ngModel)]="employee.adresse" name="adresse">
+    </div>
+
+    <div class="form-group">
+        <label for="exampleFormControlInput1" class="form-label">Email </label>
+        <input type="text" class="form-control" id="email" required [(ngModel)]="employee.email" name="email">
+    </div>
+    
+    <div class="form-group">
+        <label for="formGroupExampleInput" class="form-label">Telephone </label>
+
+        <input type="text" class="form-control" id="tel" required [(ngModel)]="employee.tel" name="tel">
+    </div>
+
+    <div class="form-group">
+        <label for="formGroupExampleInput" class="form-label">Site Web </label>
+
+        <input type="text" class="form-control" id="site" required [(ngModel)]="employee.site" name="site">
+    </div>
+
+
+
+    <button id="basic" type="button" mat-button type="submit" class="btn btn-success">Enregistrer</button>
+  </form>
+</div>
+
+<div [hidden]="!submitted">
+  <h4>Enregistré avec succés !</h4>
+  <!-- <button class="btn btn-success" (click)="newEmployee()">Add</button> -->
+</div>

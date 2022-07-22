@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Marque } from '../../model/marque';
 import { MarqueService } from '../../service/marque.service';
 import { Router } from '@angular/router';
+import { FormControl, FormGroup, NgForm } from '@angular/forms';
 @Component({
   selector: 'app-add-marque',
   templateUrl: './add-marque.component.html',
@@ -11,11 +12,14 @@ export class AddMarqueComponent implements OnInit {
 
   employee: Marque = new Marque();
   submitted = false;
-
+  public registerForm!: FormGroup;
   constructor(private employeeService: MarqueService,
     private router: Router) { }
 
-  ngOnInit() {
+  ngOnInit()  : void {
+    this.registerForm = new FormGroup({
+      nom: new FormControl()
+    });
   }
 
   newEmployee(): void {
@@ -33,8 +37,10 @@ export class AddMarqueComponent implements OnInit {
     error => console.log(error));
   }
 
-  onSubmit() {
+  onSubmit(registerForm: NgForm) {
     this.submitted = true;
+    console.log('valeurs: ', JSON.stringify(registerForm.value));
+    console.log(registerForm.form);
     this.save();    
   }
 

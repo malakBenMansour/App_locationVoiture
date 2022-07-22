@@ -1,0 +1,67 @@
+<h3 class="fw-bold" class="text-primary">Modification Modele </h3>
+<div style="width: 400px;">
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="nom"> Name</label>
+      <input type="text" class="form-control" id="nom" required [(ngModel)]="employee.nom" name="nom">
+    </div>
+
+    <div class="form-group">
+        <label for="exampleFormControlTextarea1" class="form-label">Nombre Places</label>
+        <input type="text" class="form-control" id="nbplaces" required [(ngModel)]="employee.nbplaces" name="nbplaces">
+    </div>
+
+    <div class="form-group">
+        <label for="exampleFormControlInput1" class="form-label">Nombre Portes </label>
+        <input type="text" class="form-control" id="nbportes" required [(ngModel)]="employee.nbportes" name="nbportes">
+    </div>
+    
+    <div class="form-group">
+        <label for="formGroupExampleInput" class="form-label">Volume Coffre </label>
+
+        <input type="text" class="form-control" id="volumecoffre" required [(ngModel)]="employee.volumecoffre" name="volumecoffre">
+    </div>
+
+      
+    <div class="form-group">
+        <label for="formGroupExampleInput" class="form-label">Puissance </label>
+
+        <input type="text" class="form-control" id="puissance" required [(ngModel)]="employee.puissance" name="puissance">
+    </div>
+    
+    
+      
+    <div class="form-group">
+        <label for="formGroupExampleInput" class="form-label">Version  </label>
+
+        <input type="text" class="form-control" id="version" required [(ngModel)]="employee.version" name="version">
+    </div>
+    
+    
+    
+    <div class="form-group">
+        <label for="formGroupExampleInput" class="form-label">Energie </label>
+        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+           <option   *ngFor="let energie of energies | async" value="energie.id">{{energie.nom}}</option>
+          </select>
+            
+    </div>
+
+    <div class="form-group">
+        <label for="formGroupExampleInput" class="form-label">Categorie </label>
+        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+           <option   *ngFor="let categorie of categories | async" value="categorie.id">{{categorie.nom}}</option>
+          </select>
+            
+    </div>
+
+    <div class="form-group">
+        <label for="formGroupExampleInput" class="form-label">Marque </label>
+        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+           <option   *ngFor="let marque of marques | async" value="marque.id">{{marque.nom}}</option>
+          </select>
+            
+    </div>
+    <button type="submit" class="btn btn-success">Enregistrer</button>
+  </form>
+</div>

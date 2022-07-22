@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Categorie } from '../../model/categorie';
 import { CategorieService } from '../../service/categorie.service';
 import { Router } from '@angular/router';
+import { FormControl, FormGroup, NgForm } from '@angular/forms';
 @Component({
   selector: 'app-add-categorie',
   templateUrl: './add-categorie.component.html',
@@ -11,11 +12,14 @@ export class AddCategorieComponent implements OnInit {
 
   employee: Categorie = new Categorie();
   submitted = false;
-
+  public registerForm!: FormGroup;
   constructor(private employeeService: CategorieService,
     private router: Router) { }
 
-  ngOnInit() {
+  ngOnInit() : void {
+    this.registerForm = new FormGroup({
+      nom: new FormControl()
+    });
   }
 
   newEmployee(): void {
@@ -33,8 +37,11 @@ export class AddCategorieComponent implements OnInit {
     error => console.log(error));
   }
 
-  onSubmit() {
+  onSubmit(registerForm: NgForm) {
     this.submitted = true;
+    console.log(registerForm.form);
+    console.log('valeurs: ', JSON.stringify(registerForm.value));
+   
     this.save();    
   }
 

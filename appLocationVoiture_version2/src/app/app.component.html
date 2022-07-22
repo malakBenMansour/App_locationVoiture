@@ -1,0 +1,117 @@
+<nav class="navbar navbar-dark bg-dark fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Application Location Voiture</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Application Location Voiture</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+          
+          
+  
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Gestion Boites</a>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" routerLink="boites" class="nav-link" routerLinkActive="active"></a>Liste Boites</li>
+      
+      <li><a  class="dropdown-item" routerLink="add" class="nav-link" routerLinkActive="active" ></a>Ajouter une boite</li>
+     
+    </ul>
+  </li>
+
+
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Gestion Categories</a>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" routerLink="categories" class="nav-link" routerLinkActive="active"></a>Liste Categories</li>
+      
+      <li><a  class="dropdown-item" routerLink="addCategorie" class="nav-link" routerLinkActive="active" ></a>Ajouter une Categorie</li>
+     
+    </ul>
+  </li>
+
+
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Gestion Energies</a>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" routerLink="energies" class="nav-link" routerLinkActive="active"></a>Liste Energies</li>
+      
+      <li><a  class="dropdown-item" routerLink="addEnergie" class="nav-link" routerLinkActive="active" ></a>Ajouter une Energie</li>
+     
+    </ul>
+  </li>
+
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Gestion Marques</a>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" routerLink="marques" class="nav-link" routerLinkActive="active"></a>Liste Marques</li>
+      
+      <li><a  class="dropdown-item" routerLink="addMarque" class="nav-link" routerLinkActive="active" ></a>Ajouter une Marque</li>
+     
+    </ul>
+  </li>
+
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Gestion Societes</a>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" routerLink="societes" class="nav-link" routerLinkActive="active"></a>Liste Societes</li>
+      
+      <li><a  class="dropdown-item" routerLink="addSociete" class="nav-link" routerLinkActive="active" ></a>Ajouter une Societe</li>
+     
+    </ul>
+  </li>
+
+
+
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Gestion Agences</a>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" routerLink="agences" class="nav-link" routerLinkActive="active"></a>Liste Agences</li>
+      
+      <li><a  class="dropdown-item" routerLink="addAgence" class="nav-link" routerLinkActive="active" ></a>Ajouter une Agence</li>
+     
+    </ul>
+  </li>
+
+
+
+
+
+
+
+
+
+
+
+  
+        </ul>
+        
+      </div>
+    </div>
+  </div>
+</nav>
+  
+  
+  <div class="container">
+    <br>
+    <h2 style="text-align: center;">{{title}}</h2>
+    <hr>  
+    <div class="card">
+      <div class="card-body">
+    <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+  
+  <footer class="footer">
+    <div class="container">
+     
+    </div>
+  </footer>
+
+

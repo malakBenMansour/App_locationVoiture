@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Boite } from '../../model/boite';
 import { BoiteService } from '../../service/boite.service';
 import { Router } from '@angular/router';
+import { FormControl, FormGroup, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-add-boite',
@@ -12,11 +13,14 @@ export class AddBoiteComponent implements OnInit {
 
   employee: Boite = new Boite();
   submitted = false;
-
+  public registerForm!: FormGroup;
   constructor(private employeeService: BoiteService,
     private router: Router) { }
 
-  ngOnInit() {
+  ngOnInit() : void {
+    this.registerForm = new FormGroup({
+      nom: new FormControl()
+    });
   }
 
   newEmployee(): void {
@@ -34,8 +38,10 @@ export class AddBoiteComponent implements OnInit {
     error => console.log(error));
   }
 
-  onSubmit() {
+  onSubmit(registerForm: NgForm) {
     this.submitted = true;
+    console.log(registerForm.form);
+    console.log('valeurs: ', JSON.stringify(registerForm.value))
     this.save();    
   }
 

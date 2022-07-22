@@ -1,0 +1,34 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+      <h2 class="fw-bold" class="text-primary" class="text-center">Liste des Véhicules</h2>
+    </div>
+    <div class="panel-body">
+      <table class="table table-striped-columns">
+
+        <thead>
+          <tr>
+            <th>Nom Vehicule</th>
+            <th>Matricule Vehicule</th>
+            <th>Couleur Vehicule</th>
+            <th>Numero  Chassis</th>
+            <th>Date debut Service </th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let employee of vehicules | async ">
+            <td>{{employee.nom}}</td>
+            <td>{{employee.matricule}}</td>
+            <td>{{employee.color}}</td>
+            <td>{{employee.numChassis}}</td>
+            <td>{{employee.dateDebService}}</td>
+           
+           <td><button class="btn btn-danger" (click)="deleteEmployee(employee.id)"  >Supprimer</button>
+            <button (click)="updateEmployee(employee.id)" class="btn btn-info" style="margin-left: 10px">Modifier</button>
+                
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

@@ -1,36 +1,164 @@
-<h3>Ajouter nouvelle Societe </h3>
+<h3 class="card-header">Ajouter nouvelle Societe </h3>
 <div [hidden]="submitted" style="width: 400px;">
-  <form (ngSubmit)="onSubmit()">
+  <form novalidate (ngSubmit)="onSubmit(registerForm)" #registerForm="ngForm">
     <div class="form-group">
       <label for="nom"> Nom</label>
-      <input type="text" class="form-control" id="nom" required [(ngModel)]="employee.nom" name="nom">
+      <input
+      type="text"
+      class="form-control"
+      placeholder="Tapez votre Nom"
+      [(ngModel)]="employee.nom"
+      name="nom"
+      #nom="ngModel"
+      id="nom"
+      required
+      minlength="6"
+      #lastNameVar="ngModel"
+      [ngClass]="{
+        'is-invalid': lastNameVar.touched && !lastNameVar.valid
+      }"
+    />
+   
+
+    <div *ngIf="nom.invalid && (nom.dirty || nom.touched)"
+    class="alert">
+
+  <div *ngIf="nom.errors?.['required']">
+   Nom est obligatoire
+  </div>
+  <div *ngIf="nom.errors?.['minlength']">
+    Obligatoire 6 caractères 
+  </div>
+  </div>
     </div>
 
     <div class="form-group">
         <label for="exampleFormControlTextarea1" class="form-label">Adresse</label>
-        <input type="text" class="form-control" id="adresse" required [(ngModel)]="employee.adresse" name="adresse">
+        <input
+        type="text"
+        class="form-control"
+        placeholder="Tapez votre adresse"
+        [(ngModel)]="employee.adresse"
+        name="adresse"
+        required
+        #adresse="ngModel"
+        minlength="4"
+        #adresseVar="ngModel"
+        [ngClass]="{
+          'is-invalid': adresseVar.touched && !adresseVar.valid
+        }"
+      />  
+   
+      <div *ngIf="adresse.invalid && (adresse.dirty || adresse.touched)"
+      class="alert">
+  
+    <div *ngIf="adresse.errors?.['required']">
+     Adresse est obligatoire
     </div>
+    <div *ngIf="adresse.errors?.['minlength']">
+      Obligatoire 10 caractères 
+    </div>
+    
+  
+  </div>
+  
+      
+      
+      
+      </div>
 
     <div class="form-group">
         <label for="exampleFormControlInput1" class="form-label">Email </label>
-        <input type="text" class="form-control" id="email" required [(ngModel)]="employee.email" name="email">
-    </div>
+       
+        <input type="email" class="form-control" name="email" [(ngModel)]="employee.email" [email]="true"
+        required
+        placeholder="Tapez votre adresse email"
+        minlength="10"
+        #emailVar="ngModel"
+        #email="ngModel"
+        [ngClass]="{
+          'is-invalid': emailVar.touched && !emailVar.valid
+        }"
+        
+       >
+       <div *ngIf="email.invalid && (email.dirty || email.touched)"
+       class="alert">
+   
+     <div *ngIf="email.errors?.['required']">
+      Email est obligatoire
+     </div>
+     <div *ngIf="email.errors?.['minlength']">
+       Vérifiez votre adresse Email
+     </div>
+     </div>
+      
+      </div>
     
     <div class="form-group">
         <label for="formGroupExampleInput" class="form-label">Telephone </label>
 
-        <input type="text" class="form-control" id="tel" required [(ngModel)]="employee.tel" name="tel">
+        <input  class="form-control" type="text" name="tel" id="tel" [(ngModel)]="employee.tel"
+        required
+        placeholder="Tapez votre Telephone"
+        minlength="10"
+        #telVar="ngModel"
+        #tel="ngModel"
+        pattern="^+[0-9]{8,12}$"
+        [ngClass]="{
+          'is-invalid': telVar.touched && !telVar.valid
+        }"
+       
+       >
+       <div *ngIf="tel.invalid && (tel.dirty || tel.touched)"
+       class="alert">
+   
+     <div *ngIf="tel.errors?.['required']">
+      Telephone est obligatoire
+     </div>
+     <div *ngIf="tel.errors?.['pattern']">
+       Vérifiez votre Telephone
+     </div>
+     </div>
     </div>
 
     <div class="form-group">
         <label for="formGroupExampleInput" class="form-label">Site Web </label>
 
-        <input type="text" class="form-control" id="site" required [(ngModel)]="employee.site" name="site">
+        <input
+      type="text"
+      class="form-control"
+      placeholder="Tapez votre Site Web"
+      [(ngModel)]="employee.site"
+      name="site"
+      #site="ngModel"
+      id="site"
+      required
+      minlength="10"
+      #siteVar="ngModel"
+      [ngClass]="{
+        'is-invalid': siteVar.touched && !siteVar.valid
+      }"
+    />
+   
+
+    <div *ngIf="site.invalid && (site.dirty || site.touched)"
+    class="alert">
+
+  <div *ngIf="site.errors?.['required']">
+   Nom est obligatoire
+  </div>
+  <div *ngIf="site.errors?.['minlength']">
+    Obligatoire 10 caractères 
+  </div>
+  </div>
+
+
+
     </div>
 
 
 
-    <button id="basic" type="button" mat-button type="submit" class="btn btn-success">Enregistrer</button>
+    <button [disabled]="!registerForm.valid"  id="basic" type="button" mat-button type="submit" class="btn btn-success">Enregistrer</button>
   </form>
 </div>
 

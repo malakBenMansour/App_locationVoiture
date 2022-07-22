@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AddBoiteComponent } from './boite/add-boite/add-boite.component';
 import { ListBoiteComponent } from './boite/list-boite/list-boite.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { UpdateBoiteComponent } from './boite/update-boite/update-boite.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -25,6 +25,12 @@ import { UpdateSocieteComponent } from './societe/update-societe/update-societe.
 import { ListAgenceComponent } from './agence/list-agence/list-agence.component';
 import { AddAgenceComponent } from './agence/add-agence/add-agence.component';
 import { UpdateAgenceComponent } from './agence/update-agence/update-agence.component';
+import { ListModeleComponent } from './modele/list-modele/list-modele.component';
+import { AddModeleComponent } from './modele/add-modele/add-modele.component';
+import { UpdateModeleComponent } from './modele/update-modele/update-modele.component';
+import { AddVehiculeComponent } from './vehicule/add-vehicule/add-vehicule.component';
+import { ListVehiculeComponent } from './vehicule/list-vehicule/list-vehicule.component';
+import { UpdateVehiculeComponent } from './vehicule/update-vehicule/update-vehicule.component';
 
 @NgModule({
   declarations: [
@@ -46,12 +52,18 @@ import { UpdateAgenceComponent } from './agence/update-agence/update-agence.comp
     UpdateSocieteComponent,
     ListAgenceComponent,
     AddAgenceComponent,
-    UpdateAgenceComponent
+    UpdateAgenceComponent,
+    ListModeleComponent,
+    AddModeleComponent,
+    UpdateModeleComponent,
+    AddVehiculeComponent,
+    ListVehiculeComponent,
+    UpdateVehiculeComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule,   HttpClientModule, BrowserAnimationsModule,    MatSliderModule,
+    FormsModule,   HttpClientModule, BrowserAnimationsModule,    MatSliderModule,ReactiveFormsModule
 
   ],
   providers: [ListBoiteComponent],

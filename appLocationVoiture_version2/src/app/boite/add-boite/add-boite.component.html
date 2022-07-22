@@ -1,0 +1,17 @@
+<h3>Ajouter nouvelle boite </h3>
+<div [hidden]="submitted" style="width: 400px;">
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="nom"> Nom</label>
+      <input type="text" class="form-control" id="nom" required [(ngModel)]="employee.nom" name="nom">
+    </div>
+
+    
+    <button id="basic" type="button" mat-button type="submit" class="btn btn-success">Enregistrer</button>
+  </form>
+</div>
+
+<div [hidden]="!submitted">
+  <h4>Enregistré avec succés !</h4>
+  <!-- <button class="btn btn-success" (click)="newEmployee()">Add</button> -->
+</div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Energie } from '../../model/energie';
 import { EnergieService } from '../../service/energie.service';
 import { Router } from '@angular/router';
+import { FormControl, FormGroup, NgForm } from '@angular/forms';
 @Component({
   selector: 'app-add-energie',
   templateUrl: './add-energie.component.html',
@@ -11,11 +12,14 @@ export class AddEnergieComponent implements OnInit {
 
   employee: Energie = new Energie();
   submitted = false;
-
+  public registerForm!: FormGroup;
   constructor(private employeeService: EnergieService,
     private router: Router) { }
 
-  ngOnInit() {
+  ngOnInit()  : void {
+    this.registerForm = new FormGroup({
+      nom: new FormControl()
+    });
   }
 
   newEmployee(): void {
@@ -33,8 +37,10 @@ export class AddEnergieComponent implements OnInit {
     error => console.log(error));
   }
 
-  onSubmit() {
+  onSubmit(registerForm: NgForm) {
     this.submitted = true;
+    console.log('valeurs: ', JSON.stringify(registerForm.value));
+    console.log(registerForm.form);
     this.save();    
   }
 

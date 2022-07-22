@@ -1,0 +1,50 @@
+<h3 class="fw-bold" class="text-primary">Modification Vehicule </h3>
+<div style="width: 400px;">
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="nom"> Name</label>
+      <input type="text" class="form-control" id="nom" required [(ngModel)]="employee.nom" name="nom">
+    </div>
+
+    <div class="form-group">
+        <label for="exampleFormControlTextarea1" class="form-label">Couleur</label>
+        <input type="text" class="form-control" id="color" required [(ngModel)]="employee.color" name="color">
+    </div>
+
+    <div class="form-group">
+        <label for="exampleFormControlInput1" class="form-label">date Debut Service </label>
+        <input type="text" class="form-control" id="dateDebService" required [(ngModel)]="employee.dateDebService" name="dateDebService">
+    </div>
+    
+    <div class="form-group">
+        <label for="formGroupExampleInput" class="form-label">numero Chassis </label>
+
+        <input type="text" class="form-control" id="numChassis" required [(ngModel)]="employee.numChassis" name="numChassis">
+    </div>
+
+    <div class="form-group">
+        <label for="formGroupExampleInput" class="form-label">Matricule </label>
+
+        <input type="text" class="form-control" id="matricule" required [(ngModel)]="employee.matricule" name="matricule">
+    </div>
+    <div class="form-group">
+        <label for="formGroupExampleInput" class="form-label">Boite </label>
+        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+           <option   *ngFor="let boite of boites | async" value="boite.id">{{boite.nom}}</option>
+          </select>
+            
+        
+    </div>
+
+    <div class="form-group">
+        <label for="formGroupExampleInput" class="form-label">Modele </label>
+        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+           <option   *ngFor="let modele of modeles | async" value="modele.id">{{modele.nom}}</option>
+          </select>
+            
+        
+    </div>
+
+    <button type="submit" class="btn btn-success">Enregistrer</button>
+  </form>
+</div>

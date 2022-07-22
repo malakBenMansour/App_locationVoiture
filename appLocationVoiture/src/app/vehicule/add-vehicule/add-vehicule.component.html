@@ -1,0 +1,172 @@
+<h3 class="card-header">Ajouter nouvelle Vehicule </h3>
+<div [hidden]="submitted" style="width: 400px;">
+  <form  novalidate (ngSubmit)="onSubmit(registerForm)" #registerForm="ngForm" class="row g-3 align-items-center">
+    <div class="form-group">
+      <label for="nom"> Nom</label>
+      <input
+      type="text"
+      class="form-control"
+      placeholder="Tapez votre Nom"
+      [(ngModel)]="employee.nom"
+      name="nom"
+      #nom="ngModel"
+      id="nom"
+      required
+      minlength="6"
+      #lastNameVar="ngModel"
+      [ngClass]="{
+        'is-invalid': lastNameVar.touched && !lastNameVar.valid
+      }"
+    />
+   
+
+    <div *ngIf="nom.invalid && (nom.dirty || nom.touched)"
+    class="alert">
+
+  <div *ngIf="nom.errors?.['required']">
+   Nom est obligatoire
+  </div>
+  <div *ngIf="nom.errors?.['minlength']">
+    Obligatoire 6 caractères 
+  </div>
+  </div>
+   
+   
+    
+    </div>
+
+    <div class="col-md-6">
+        <label for="exampleFormControlTextarea1" class="form-label">Couleur</label>
+        
+        <input  class="form-control" type="text" name="color" id="color" [(ngModel)]="employee.color"
+        required
+        placeholder="Tapez Couleur"
+        minlength="4"
+        #colorVar="ngModel"
+        #color="ngModel"
+       
+        [ngClass]="{
+          'is-invalid': colorVar.touched && !colorVar.valid
+        }"
+       
+       >
+       <div *ngIf="color.invalid && (color.dirty || color.touched)"
+       class="alert">
+   
+     <div *ngIf="color.errors?.['required']">
+      La couleur est obligatoire
+     </div>
+     <div *ngIf="color.errors?.['minlength']">
+       Minimum 4 caractères
+     </div>
+     </div>
+   
+      
+        </div>
+
+    <div class="col-12">
+        <label for="exampleFormControlInput1" class="form-label">date Debut Service </label>
+        <input type="text" class="form-control" id="dateDebService" required [(ngModel)]="employee.dateDebService" name="dateDebService">
+    </div>
+    
+    <div class="col-12">
+        <label for="formGroupExampleInput" class="form-label">numero Chassis </label>
+        <input  class="form-control" type="text" name="numChassis" id="numChassis" [(ngModel)]="employee.numChassis"
+        required
+        placeholder="Tapez Numero de Chassis"
+        
+        #numChassisVar="ngModel"
+        #numChassis="ngModel"
+    
+        [ngClass]="{
+          'is-invalid': numChassisVar.touched && !numChassisVar.valid
+        }"
+       
+       >
+       <div *ngIf="numChassis.invalid && (numChassis.dirty || numChassis.touched)"
+       class="alert">
+   
+     <div *ngIf="numChassis.errors?.['required']">
+      Numero de Chassis est obligatoire
+     </div>
+     
+     </div>
+       
+    
+      
+      </div>
+
+    <div class="form-group">
+        <label for="formGroupExampleInput" class="form-label">Matricule </label>
+
+        <input
+        type="text"
+        class="form-control"
+        placeholder="Tapez votre Matricule"
+        [(ngModel)]="employee.matricule"
+        name="matricule"
+        #matricule="ngModel"
+        id="matricule"
+        required
+        minlength="6"
+        #matriculeVar="ngModel"
+        [ngClass]="{
+          'is-invalid': matriculeVar.touched && !matriculeVar.valid
+        }"
+      />
+     
+  
+      <div *ngIf="matricule.invalid && (matricule.dirty || matricule.touched)"
+      class="alert">
+  
+    <div *ngIf="matricule.errors?.['required']">
+     Matricule est obligatoire
+    </div>
+    <div *ngIf="matricule.errors?.['minlength']">
+      Obligatoire 6 caractères 
+    </div>
+    </div>
+     
+     
+    
+    
+    
+    
+    
+    
+    
+      </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="form-group">
+        <label for="formGroupExampleInput" class="form-label">Boite </label>
+        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+           <option   *ngFor="let boite of boites | async" value="boite.id">{{boite.nom}}</option>
+          </select>
+            
+        
+    </div>
+
+    <div class="form-group">
+        <label for="formGroupExampleInput" class="form-label">Modele </label>
+        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+           <option   *ngFor="let modele of modeles | async" value="modele.id">{{modele.nom}}</option>
+          </select>
+            
+        
+    </div>
+
+    <button  [disabled]="!registerForm.valid" id="basic" type="button" mat-button type="submit" class="btn btn-success">Enregistrer</button>
+  </form>
+</div>
+
+<div [hidden]="!submitted">
+  <h4>Enregistré avec succés !</h4>
+  <!-- <button class="btn btn-success" (click)="newEmployee()">Add</button> -->
+</div>

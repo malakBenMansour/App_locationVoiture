@@ -1,14 +1,41 @@
-<h3>Ajouter nouvelle Marque </h3>
+<h3  class="card-header">Ajouter nouvelle Marque </h3>
 <div [hidden]="submitted" style="width: 400px;">
-  <form (ngSubmit)="onSubmit()">
+  <form novalidate (ngSubmit)="onSubmit(registerForm)" #registerForm="ngForm">
     <div class="form-group">
       <label for="nom"> Nom</label>
-      <input type="text" class="form-control" id="nom" required [(ngModel)]="employee.nom" name="nom">
-    </div>
+     
+      <input
+      type="text"
+      class="form-control"
+      placeholder="Tapez votre Nom"
+      [(ngModel)]="employee.nom"
+      name="nom"
+      #nom="ngModel"
+      id="nom"
+      required
+      minlength="6"
+      #lastNameVar="ngModel"
+      [ngClass]="{
+        'is-invalid': lastNameVar.touched && !lastNameVar.valid
+      }"
+    />
+   
+
+    <div *ngIf="nom.invalid && (nom.dirty || nom.touched)"
+    class="alert">
+
+  <div *ngIf="nom.errors?.['required']">
+   Nom est obligatoire
+  </div>
+  <div *ngIf="nom.errors?.['minlength']">
+    Obligatoire 6 caractères 
+  </div>
+  </div>
+ </div>
+<button id="basic" type="button" mat-button type="submit" class="btn btn-success"  [disabled]="!registerForm.valid">Enregistrer</button>
 
     
-    <button id="basic" type="button" mat-button type="submit" class="btn btn-success">Enregistrer</button>
-  </form>
+   </form>
 </div>
 
 <div [hidden]="!submitted">

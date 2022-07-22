@@ -1,0 +1,240 @@
+<h3 class="card-header">Ajouter nouveau Modele </h3>
+<div [hidden]="submitted" style="width: 400px;" >
+  <form  novalidate (ngSubmit)="onSubmit(registerForm)" #registerForm="ngForm" class="row g-3 align-items-center">
+    <div class="col-md-6">
+      <label for="nom"> Nom</label>
+      
+      <input
+      type="text"
+      class="form-control"
+      placeholder="Tapez votre Nom"
+      [(ngModel)]="employee.nom"
+      name="nom"
+      #nom="ngModel"
+      id="nom"
+      required
+      minlength="6"
+      #lastNameVar="ngModel"
+      [ngClass]="{
+        'is-invalid': lastNameVar.touched && !lastNameVar.valid
+      }"
+    />
+   
+
+    <div *ngIf="nom.invalid && (nom.dirty || nom.touched)"
+    class="alert">
+
+  <div *ngIf="nom.errors?.['required']">
+   Nom est obligatoire
+  </div>
+  <div *ngIf="nom.errors?.['minlength']">
+    Obligatoire 6 caractères 
+  </div>
+  </div>
+   
+   
+   
+    </div>
+
+    <div class="col-md-6">
+        <label for="exampleFormControlTextarea1" class="form-label">Nombre Places</label>
+        <input  class="form-control" type="text" name="nbplaces" id="nbplaces" [(ngModel)]="employee.nbplaces"
+        required
+        placeholder="Tapez Nombre de places"
+        
+        #nbplacesVar="ngModel"
+        #nbplaces="ngModel"
+        pattern="^[0-9]$"
+        [ngClass]="{
+          'is-invalid': nbplacesVar.touched && !nbplacesVar.valid
+        }"
+       
+       >
+       <div *ngIf="nbplaces.invalid && (nbplaces.dirty || nbplaces.touched)"
+       class="alert">
+   
+     <div *ngIf="nbplaces.errors?.['required']">
+      Nombre de places est obligatoire
+     </div>
+     <div *ngIf="nbplaces.errors?.['pattern']">
+       Vérifiez nombre de places
+     </div>
+     </div>
+   
+   
+      </div>
+
+    <div class="col-12">
+        <label for="exampleFormControlInput1" class="form-label">Nombre Portes </label>
+        
+        <input  class="form-control" type="text" name="nbportes" id="nbportes" [(ngModel)]="employee.nbportes"
+        required
+        placeholder="Tapez Nombre de portes"
+        
+        #nbportesVar="ngModel"
+        #nbportes="ngModel"
+        pattern="^[0-7]$"
+        [ngClass]="{
+          'is-invalid': nbportesVar.touched && !nbportesVar.valid
+        }"
+       
+       >
+       <div *ngIf="nbportes.invalid && (nbportes.dirty || nbportes.touched)"
+       class="alert">
+   
+     <div *ngIf="nbportes.errors?.['required']">
+      Nombre de portes est obligatoire
+     </div>
+     <div *ngIf="nbportes.errors?.['pattern']">
+       Vérifiez nombre de portes
+     </div>
+     </div>
+      </div>
+    
+    <div class="col-12">
+        <label for="formGroupExampleInput" class="form-label">Volume Coffre </label>
+
+        <input  class="form-control" type="text" name="volumecoffre" id="volumecoffre" [(ngModel)]="employee.volumecoffre"
+        required
+        placeholder="Tapez Volume de Coffre"
+        
+        #volumeVar="ngModel"
+        #volume="ngModel"
+        pattern="[0-9].{1,6}$"
+        [ngClass]="{
+          'is-invalid': volumeVar.touched && !volumeVar.valid
+        }"
+       
+       >
+       <div *ngIf="volume.invalid && (volume.dirty || volume.touched)"
+       class="alert">
+   
+     <div *ngIf="volume.errors?.['required']">
+     Volume de coffre est obligatoire
+     </div>
+     <div *ngIf="volume.errors?.['pattern']">
+       Vérifiez volume Coffre
+     </div>
+     </div>
+   
+   
+   
+   
+   
+   
+      </div>
+
+      
+    <div class="col-md-6">
+        <label for="formGroupExampleInput" class="form-label">Puissance </label>
+
+        
+        <input
+        type="text"
+        class="form-control"
+        placeholder="Tapez Puissance"
+        [(ngModel)]="employee.puissance"
+        name="puissance"
+        #puissance="ngModel"
+        id="puissance"
+        required
+        minlength="3"
+        #puissanceVar="ngModel"
+        [ngClass]="{
+          'is-invalid': puissanceVar.touched && !puissanceVar.valid
+        }"
+      />
+     
+  
+      <div *ngIf="puissance.invalid && (puissance.dirty || puissance.touched)"
+      class="alert">
+  
+    <div *ngIf="puissance.errors?.['required']">
+     Puissance est obligatoire
+    </div>
+    <div *ngIf="puissance.errors?.['minlength']">
+      Obligatoire 3 caractères 
+    </div>
+    </div>
+  
+  
+  
+  
+  
+      </div>
+    
+    
+      
+    <div class="col-md-6">
+        <label for="formGroupExampleInput" class="form-label">Version  </label>
+
+        <input
+        type="text"
+        class="form-control"
+        placeholder="Tapez Version"
+        [(ngModel)]="employee.version"
+        name="version"
+        #version="ngModel"
+        id="version"
+        required
+        minlength="6"
+        #versionVar="ngModel"
+        [ngClass]="{
+          'is-invalid': versionVar.touched && !versionVar.valid
+        }"
+      />
+     
+  
+      <div *ngIf="version.invalid && (version.dirty || version.touched)"
+      class="alert">
+  
+    <div *ngIf="version.errors?.['required']">
+     Nom est obligatoire
+    </div>
+    <div *ngIf="version.errors?.['minlength']">
+      Obligatoire 6 caractères 
+    </div>
+    </div>
+  
+  
+  
+  
+  
+  
+  
+      </div>
+    
+    
+    
+    <div class="form-group">
+        <label for="formGroupExampleInput" class="form-label">Energie </label>
+        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+           <option   *ngFor="let energie of energies | async" value="energie.id">{{energie.nom}}</option>
+          </select>
+            
+    </div>
+
+    <div class="form-group">
+        <label for="formGroupExampleInput" class="form-label">Categorie </label>
+        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+           <option   *ngFor="let categorie of categories | async" value="categorie.id">{{categorie.nom}}</option>
+          </select>
+            
+    </div>
+
+    <div class="form-group">
+        <label for="formGroupExampleInput" class="form-label">Marque </label>
+        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+           <option   *ngFor="let marque of marques | async" value="marque.id">{{marque.nom}}</option>
+          </select>
+            
+    </div>
+
+    <button   [disabled]="!registerForm.valid" id="basic" type="button" mat-button type="submit" class="btn btn-success">Enregistrer</button>
+  </form>
+</div>
+
+<div [hidden]="!submitted">
+  <h4>Enregistré avec succés !</h4>
+  <!-- <button class="btn btn-success" (click)="newEmployee()">Add</button> -->
+</div>

@@ -12,8 +12,10 @@ export class CategorieService {
 
   constructor(private http: HttpClient){}
 
-  public getCategories(): Observable<Categorie[]> {
-    return this.http.get<Categorie[]>(`${this.apiServerUrl}/categorie/all`);
+  public getCategories() {
+  //  return this.http.get<Categorie[]>(`${this.apiServerUrl}/categorie/all`);
+  return this.http.get<Categorie[]>(`${this.apiServerUrl}/categorie/all`);
+
   }
 
   public addCategorie(categorie: Categorie): Observable<Categorie> {

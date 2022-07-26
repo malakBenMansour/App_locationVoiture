@@ -14,7 +14,7 @@ export class ModeleService {
 
   constructor(private http: HttpClient){}
 
-  public getModeles(): Observable<Modele[]> {
+  public getModeles() {
     return this.http.get<Modele[]>(`${this.apiServerUrl}/modele/all`);
   }
 

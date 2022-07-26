@@ -2,12 +2,16 @@
     <div class="panel-heading">
       <h2 class="fw-bold" class="text-primary" class="text-center">Liste des Agences</h2>
     </div>
+
+    <input class ="form-control"type="text" name="nom" [(ngModel)]="nom" (ngModelChange)="Search()" placeholder="
+    Taper le nom Agence">
     <div class="panel-body">
       <table class="table table-striped-columns">
 
         <thead>
           <tr>
-            <th>Nom Agence</th>
+            <th (click)="sort('nom')"> <i class="fa-solid fa-arrow-down-arrow-up"></i>Nom Agence &nbsp;</th>
+            
             <th>Adresse Agence</th>
             <th>Email Agence</th>
             <th>Telephone Agence</th>
@@ -16,7 +20,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let employee of agences | async ">
+          <tr *ngFor="let employee of employees | orderBy: key: reverse | paginate: {itemsPerPage:3,currentPage:p}; ">
             <td>{{employee.nom}}</td>
             <td>{{employee.adresse}}</td>
             <td>{{employee.email}}</td>
@@ -29,6 +33,7 @@
             </td>
           </tr>
         </tbody>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
       </table>
     </div>
   </div>

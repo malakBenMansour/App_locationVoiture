@@ -2,18 +2,20 @@
     <div class="panel-heading">
       <h2 class="fw-bold" class="text-primary" class="text-center">Liste de Energies</h2>
     </div>
+    <input class ="form-control"type="text" name="nom" [(ngModel)]="nom" (ngModelChange)="Search()" placeholder="
+    Taper le nom Energie">
     <div class="panel-body">
       <table class="table table-striped-columns">
 
         <thead>
           <tr>
-            <th>Nom Energies</th>
+            <th (click)="sort('nom')"> <i class="fa-solid fa-arrow-down-arrow-up"></i>Nom Energie &nbsp;</th>
             
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let employee of energies | async">
+          <tr *ngFor="let employee of employees | orderBy: key: reverse | paginate: {itemsPerPage:3,currentPage:p}; ">
             <td>{{employee.nom}}</td>
         
             <td><button class="btn btn-danger" (click)="deleteEmployee(employee.id)"  >Supprimer</button>
@@ -22,6 +24,7 @@
             </td>
           </tr>
         </tbody>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
       </table>
     </div>
   </div>

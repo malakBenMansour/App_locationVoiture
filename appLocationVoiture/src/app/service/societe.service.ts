@@ -11,7 +11,7 @@ export class SocieteService {
 
   constructor(private http: HttpClient){}
 
-  public getSocietes(): Observable<Societe[]> {
+  public getSocietes() {
     return this.http.get<Societe[]>(`${this.apiServerUrl}/societe/all`);
   }
 

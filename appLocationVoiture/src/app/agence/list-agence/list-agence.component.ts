@@ -14,6 +14,9 @@ import { SocieteService } from 'src/app/service/societe.service';
 })
 export class ListAgenceComponent implements OnInit {
   agences: Observable<Agence[]> | undefined;
+  employees: Agence[] = [];
+   nom:any;
+   p:number=1;
   societes: Observable<Societe[]> | undefined;
   constructor(private employeeService: AgenceService,private societeService:SocieteService,
     private router: Router) {}
@@ -24,7 +27,10 @@ export class ListAgenceComponent implements OnInit {
   }
 
   reloadData() {
-    this.agences = this.employeeService.getAgences();
+ //   this.agences = this.employeeService.getAgences();
+ this.employeeService.getAgences().subscribe((response)=>{
+  this.employees=response;
+})
   }
 
   deleteEmployee(id: number) {
@@ -45,6 +51,27 @@ export class ListAgenceComponent implements OnInit {
     this.router.navigate(['updateAgence', id]);
   }
   
-
+  Search()
+  {
+    if(this.nom=="")
+    {
+      this.reloadData();
+    }
+    else 
+    {
+      this.employees=this.employees.filter(res=>{
+        return res.nom.toLocaleLowerCase().match(this.nom.toLocaleLowerCase());
+      })
+    }
+  }
+  
+  
+  key:string='nom';
+  reverse:boolean=false;
+  sort(key:string)
+  {
+  this.key=key;
+  this.reverse=!this.reverse;
+  }
 
 }

@@ -12,8 +12,10 @@ export class BoiteService {
 
   constructor(private http: HttpClient){}
 
-  public getBoites(): Observable<Boite[]> {
+  public getBoites() {
+    //return this.http.get<Boite[]>(`${this.apiServerUrl}/boite/all`);
     return this.http.get<Boite[]>(`${this.apiServerUrl}/boite/all`);
+
   }
 
   public addBoite(boite: Boite): Observable<Boite> {
@@ -31,5 +33,8 @@ export class BoiteService {
     return this.http.get(`${this.apiServerUrl}/boite/find/${id}`);
   }
 
-
+public getByNom(nom:String): Observable<Boite[]>
+{
+  return this.http.get<Boite[]>(`${this.apiServerUrl}/boite/findnom`);
+}
 }

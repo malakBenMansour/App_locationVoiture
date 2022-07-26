@@ -13,7 +13,9 @@ import { Router } from '@angular/router';
 export class ListSocieteComponent implements OnInit {
 
   societes: Observable<Societe[]> | undefined;
-
+  employees: Societe[] = [];
+  nom:any;
+  p:number=1;
   constructor(private employeeService: SocieteService,
     private router: Router) {}
 
@@ -22,7 +24,10 @@ export class ListSocieteComponent implements OnInit {
   }
 
   reloadData() {
-    this.societes = this.employeeService.getSocietes();
+   // this.societes = this.employeeService.getSocietes();
+   this.employeeService.getSocietes().subscribe((response)=>{
+    this.employees=response;
+  })
   }
 
   deleteEmployee(id: number) {
@@ -41,6 +46,28 @@ export class ListSocieteComponent implements OnInit {
 
   updateEmployee(id: number){
     this.router.navigate(['updateSociete', id]);
+  }
+  Search()
+  {
+    if(this.nom=="")
+    {
+      this.reloadData();
+    }
+    else 
+    {
+      this.employees=this.employees.filter(res=>{
+        return res.nom.toLocaleLowerCase().match(this.nom.toLocaleLowerCase());
+      })
+    }
+  }
+  
+  
+  key:string='nom';
+  reverse:boolean=false;
+  sort(key:string)
+  {
+  this.key=key;
+  this.reverse=!this.reverse;
   }
 
 

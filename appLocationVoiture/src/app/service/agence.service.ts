@@ -11,8 +11,10 @@ export class AgenceService {
 
   constructor(private http: HttpClient){}
 
-  public getAgences(): Observable<Agence[]> {
+  public getAgences() {
+    //return this.http.get<Agence[]>(`${this.apiServerUrl}/agence/all`);
     return this.http.get<Agence[]>(`${this.apiServerUrl}/agence/all`);
+
   }
 
   public addAgence(agence: Agence): Observable<Agence> {

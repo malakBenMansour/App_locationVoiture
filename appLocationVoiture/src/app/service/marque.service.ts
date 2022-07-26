@@ -11,7 +11,7 @@ export class MarqueService {
 
   constructor(private http: HttpClient){}
 
-  public getMarques(): Observable<Marque[]> {
+  public getMarques() {
     return this.http.get<Marque[]>(`${this.apiServerUrl}/marque/all`);
   }
 

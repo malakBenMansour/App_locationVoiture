@@ -1,0 +1,12 @@
+<h3 class="fw-bold" class="text-primary">Modification Energie </h3>
+<div style="width: 400px;">
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="nom"> Nom</label>
+      <input type="text" class="form-control" id="nom" required [(ngModel)]="employee.nom" name="nom">
+    </div>
+
+
+    <button type="submit" class="btn btn-success">Enregistrer</button>
+  </form>
+</div>

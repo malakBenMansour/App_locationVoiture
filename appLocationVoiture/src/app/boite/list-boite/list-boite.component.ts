@@ -12,8 +12,11 @@ import { Router } from '@angular/router';
 })
 export class ListBoiteComponent implements OnInit {
 
-  boites: Observable<Boite[]> | undefined;
-
+ boites: Observable<Boite> | undefined;
+  
+ employees: Boite[] = [];
+   nom:any;
+   p:number=1;
   constructor(private employeeService: BoiteService,
     private router: Router) {}
 
@@ -22,7 +25,11 @@ export class ListBoiteComponent implements OnInit {
   }
 
   reloadData() {
-    this.boites = this.employeeService.getBoites();
+  
+  // this.employees = this.employeeService.getBoites();
+  this.employeeService.getBoites().subscribe((response)=>{
+    this.employees=response;
+  })
   }
 
   deleteEmployee(id: number) {
@@ -42,6 +49,27 @@ export class ListBoiteComponent implements OnInit {
   updateEmployee(id: number){
     this.router.navigate(['update', id]);
   }
+  
+Search()
+{
+  if(this.nom=="")
+  {
+    this.reloadData();
+  }
+  else 
+  {
+    this.employees=this.employees.filter(res=>{
+      return res.nom.toLocaleLowerCase().match(this.nom.toLocaleLowerCase());
+    })
+  }
+}
 
 
+key:string='nom';
+reverse:boolean=false;
+sort(key:string)
+{
+this.key=key;
+this.reverse=!this.reverse;
+}
 }

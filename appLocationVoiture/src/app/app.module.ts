@@ -31,7 +31,9 @@ import { UpdateModeleComponent } from './modele/update-modele/update-modele.comp
 import { AddVehiculeComponent } from './vehicule/add-vehicule/add-vehicule.component';
 import { ListVehiculeComponent } from './vehicule/list-vehicule/list-vehicule.component';
 import { UpdateVehiculeComponent } from './vehicule/update-vehicule/update-vehicule.component';
-
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { Ng2OrderModule } from 'ng2-order-pipe';
+import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,7 +65,7 @@ import { UpdateVehiculeComponent } from './vehicule/update-vehicule/update-vehic
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule,   HttpClientModule, BrowserAnimationsModule,    MatSliderModule,ReactiveFormsModule
+    FormsModule,   HttpClientModule, BrowserAnimationsModule,    MatSliderModule,ReactiveFormsModule, Ng2SearchPipeModule,Ng2OrderModule,NgxPaginationModule
 
   ],
   providers: [ListBoiteComponent],

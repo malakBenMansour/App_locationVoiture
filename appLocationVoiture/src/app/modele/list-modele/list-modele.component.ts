@@ -21,6 +21,9 @@ export class ListModeleComponent implements OnInit {
   energies: Observable<Energie[]> | undefined;
   marques: Observable<Marque[]> | undefined;
   categories: Observable<Categorie[]> | undefined;
+  employees: Marque[] = [];
+  nom:any;
+  p:number=1;
   constructor(private employeeService: ModeleService,private energieService:EnergieService,
     private marqueService:MarqueService,private categorieService:CategorieService,
     private router: Router) {}
@@ -33,7 +36,10 @@ export class ListModeleComponent implements OnInit {
    }
 
   reloadData() {
-    this.modeles = this.employeeService.getModeles();
+ //   this.modeles = this.employeeService.getModeles();
+ this.employeeService.getModeles().subscribe((response)=>{
+  this.employees=response;
+})
   }
 
   deleteEmployee(id: number) {
@@ -54,6 +60,28 @@ export class ListModeleComponent implements OnInit {
     this.router.navigate(['updateModele', id]);
   }
   
+  Search()
+  {
+    if(this.nom=="")
+    {
+      this.reloadData();
+    }
+    else 
+    {
+      this.employees=this.employees.filter(res=>{
+        return res.nom.toLocaleLowerCase().match(this.nom.toLocaleLowerCase());
+      })
+    }
+  }
+  
+  
+  key:string='nom';
+  reverse:boolean=false;
+  sort(key:string)
+  {
+  this.key=key;
+  this.reverse=!this.reverse;
+  }
 
 
 }

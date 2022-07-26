@@ -2,12 +2,14 @@
     <div class="panel-heading">
       <h2 class="fw-bold" class="text-primary" class="text-center">Liste des Véhicules</h2>
     </div>
+    <input class ="form-control"type="text" name="nom" [(ngModel)]="nom" (ngModelChange)="Search()" placeholder="
+    Taper le nom Vehicule">
     <div class="panel-body">
       <table class="table table-striped-columns">
 
         <thead>
           <tr>
-            <th>Nom Vehicule</th>
+            <th (click)="sort('nom')"> <i class="fa-solid fa-arrow-down-arrow-up"></i>Nom Vehicule &nbsp;</th>
             <th>Matricule Vehicule</th>
             <th>Couleur Vehicule</th>
             <th>Numero  Chassis</th>
@@ -16,7 +18,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let employee of vehicules | async ">
+          <tr *ngFor="let employee of employees | orderBy: key: reverse | paginate: {itemsPerPage:3,currentPage:p}; ">
             <td>{{employee.nom}}</td>
             <td>{{employee.matricule}}</td>
             <td>{{employee.color}}</td>
@@ -29,6 +31,7 @@
             </td>
           </tr>
         </tbody>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
       </table>
     </div>
   </div>

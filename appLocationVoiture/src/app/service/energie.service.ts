@@ -12,7 +12,7 @@ export class EnergieService {
 
   constructor(private http: HttpClient){}
 
-  public getEnergies(): Observable<Energie[]> {
+  public getEnergies(){
     return this.http.get<Energie[]>(`${this.apiServerUrl}/energie/all`);
   }
 

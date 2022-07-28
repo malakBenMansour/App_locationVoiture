@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { ChartOptions, ChartType } from 'chart.js';
+import { Color, Label, SingleDataSet } from 'ng2-charts';
+import { ITypePercentage } from './interface/agence.interface';
+import { AgenceService } from './service/agence.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +11,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'appLocationVoiture';
+
+ 
 }

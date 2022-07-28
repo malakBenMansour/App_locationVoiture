@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Agence } from '../model/agence';
 import { Societe } from '../model/societe';
+import { ITypePercentage } from '../interface/agence.interface';
 @Injectable({
   providedIn: 'root'
 })
 export class AgenceService {
   private apiServerUrl = "http://localhost:8090";
+
 
   constructor(private http: HttpClient){}
 
@@ -32,4 +34,8 @@ export class AgenceService {
     return this.http.get(`${this.apiServerUrl}/agence/find/${id}`);
   }
 
+  getTypePercentage(): Observable<Array<ITypePercentage>> {
+    return this.http.get<Array<ITypePercentage>>(`http://localhost:8090/agence/statistique`)
+      .pipe(map((d: Array<ITypePercentage>) => d));
+  }
 }

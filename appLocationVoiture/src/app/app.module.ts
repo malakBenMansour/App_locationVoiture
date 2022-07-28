@@ -34,6 +34,10 @@ import { UpdateVehiculeComponent } from './vehicule/update-vehicule/update-vehic
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { Ng2OrderModule } from 'ng2-order-pipe';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ChartsModule } from 'ng2-charts';
+import { StatistiquesComponent } from './statistiques/statistiques.component';
+import { ExportSocieteComponent } from './export-societe/export-societe.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,12 +64,15 @@ import { NgxPaginationModule } from 'ngx-pagination';
     UpdateModeleComponent,
     AddVehiculeComponent,
     ListVehiculeComponent,
-    UpdateVehiculeComponent
+    UpdateVehiculeComponent,
+    StatistiquesComponent,
+    ExportSocieteComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,   HttpClientModule, BrowserAnimationsModule,    MatSliderModule,ReactiveFormsModule, Ng2SearchPipeModule,Ng2OrderModule,NgxPaginationModule
+    ,ChartsModule
 
   ],
   providers: [ListBoiteComponent],

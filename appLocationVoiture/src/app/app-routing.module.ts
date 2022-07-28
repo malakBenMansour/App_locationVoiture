@@ -12,6 +12,7 @@ import { UpdateCategorieComponent } from './categorie/update-categorie/update-ca
 import { AddEnergieComponent } from './energie/add-energie/add-energie.component';
 import { ListEnergieComponent } from './energie/list-energie/list-energie.component';
 import { UpdateEnergieComponent } from './energie/update-energie/update-energie.component';
+import { ExportSocieteComponent } from './export-societe/export-societe.component';
 import { AddMarqueComponent } from './marque/add-marque/add-marque.component';
 import { ListMarqueComponent } from './marque/list-marque/list-marque.component';
 import { UpdateMarqueComponent } from './marque/update-marque/update-marque.component';
@@ -21,6 +22,7 @@ import { UpdateModeleComponent } from './modele/update-modele/update-modele.comp
 import { AddSocieteComponent } from './societe/add-societe/add-societe.component';
 import { ListSocieteComponent } from './societe/list-societe/list-societe.component';
 import { UpdateSocieteComponent } from './societe/update-societe/update-societe.component';
+import { StatistiquesComponent } from './statistiques/statistiques.component';
 import { AddVehiculeComponent } from './vehicule/add-vehicule/add-vehicule.component';
 import { ListVehiculeComponent } from './vehicule/list-vehicule/list-vehicule.component';
 import { UpdateVehiculeComponent } from './vehicule/update-vehicule/update-vehicule.component';
@@ -50,6 +52,8 @@ const routes: Routes = [{ path: '', redirectTo: 'boite', pathMatch: 'full' },
 { path: 'vehicules', component:ListVehiculeComponent },
 { path: 'addVehicule', component: AddVehiculeComponent },
 { path: 'updateVehicule/:id', component: UpdateVehiculeComponent },
+{ path: 'stat', component: StatistiquesComponent },
+{ path: 'pdfsocietes', component: ExportSocieteComponent },
 ];
 
 @NgModule({

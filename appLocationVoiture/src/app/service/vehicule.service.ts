@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
+import { ITPercentage } from '../interface/vehicule.interface';
 import { Vehicule } from '../model/vehicule';
 
 @Injectable({
@@ -28,6 +29,11 @@ export class VehiculeService {
 
   public getVehicule(id: number): Observable<any> {
     return this.http.get(`${this.apiServerUrl}/vehicule/find/${id}`);
+  }
+
+  getTypePercentage(): Observable<Array<ITPercentage>> {
+    return this.http.get<Array<ITPercentage>>(`http://localhost:8090/vehicule/stat`)
+      .pipe(map((d: Array<ITPercentage>) => d));
   }
 
 }

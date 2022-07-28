@@ -29,4 +29,11 @@ export class SocieteService {
   public getSociete(id: number): Observable<any> {
     return this.http.get(`${this.apiServerUrl}/societe/find/${id}`);
   }
+
+  public exportPdfSociete(): Observable<Blob>{
+    return this.http.get(`${this.apiServerUrl}/societe/exportpdf`,{responseType: 'blob'});
+  }
+  public exportExcelSociete(): Observable<Blob>{
+    return this.http.get(`${this.apiServerUrl}/societe/excel`,{responseType: 'blob'});
+  }
 }

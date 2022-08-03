@@ -1,0 +1,233 @@
+package lb.applicationstage.locationvoiture.controller;
+
+
+
+import lb.applicationstage.locationvoiture.entities.Marque;
+import lb.applicationstage.locationvoiture.entities.Societe;
+
+
+import lb.applicationstage.locationvoiture.service.SocieteService;
+import lb.applicationstage.locationvoiture.service.ExportSocieteService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.util.List;
+
+@Controller
+@RequestMapping("/societe")
+@CrossOrigin("*")
+public class SocieteController {
+
+    @Autowired
+    SocieteService societeService;
+    @Autowired
+    ExportSocieteService exportSocieteService;
+
+
+    private String add_template = "societe/add";
+    private String list_template = "societe/list";
+    private String list_redirect = "redirect:/societe/all";
+    private String edit_template = "redirect:/societe/edit";
+    private String list_recherche = "redirect:/societe/recherche";
+
+    /*
+
+     ********************************** CRUD POSTMAN ****************
+     */
+    @GetMapping("/all")
+    @ResponseBody
+    public List<Societe> getAll() {
+        return societeService.afficher();
+    }
+
+    @GetMapping("/find/{id}")
+    @ResponseBody
+    public Societe find(@PathVariable int id) {
+        return societeService.findSocietebyID(id);
+    }
+
+    @PostMapping("/add")
+    @ResponseBody
+    public Societe add(@RequestBody Societe societe) {
+        return societeService.addSociete(societe);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    @ResponseBody
+    public void delete(@PathVariable int id) {
+        societeService.supprimer(id);
+    }
+
+    @PutMapping("/update")
+    @ResponseBody
+    public Societe update(@RequestBody Societe societe) {
+        return societeService.modifier(societe);
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Societe> updateSociete(@PathVariable int id, @RequestBody Marque employeeDetails) {
+        Societe employee = societeService.findSocietebyID(id);
+        employee.setNom(employeeDetails.getNom());
+
+        Societe updateBoite = societeService.modifier(employee);
+        return ResponseEntity.ok(updateBoite);
+
+
+    }
+
+    @GetMapping("/exportpdf")
+    public ResponseEntity<InputStreamResource> exportPdf() {
+        List<Societe> societes = (List<Societe>) societeService.afficher();
+        ByteArrayInputStream bais = exportSocieteService.societeExport(societes);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "inline;filename=societe.pdf");
+        return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF).body(new InputStreamResource(bais));
+    }
+
+    @GetMapping("/excel")
+    public ResponseEntity<InputStreamResource> exportExcel() throws IOException {
+        List<Societe> societes = (List<Societe>) societeService.afficher();
+        ByteArrayInputStream bais = exportSocieteService.societeExportExcel(societes);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "inline;filename=societe.xlsx");
+        return ResponseEntity.ok().headers(headers).body(new InputStreamResource(bais));
+
+
+
+
+
+
+
+        /*
+         **************** CRUD + TEMPLATE *******************
+
+         */
+/*
+    @GetMapping("/all")
+    public String afficher(Model model,String keyword) {
+
+  /*if(keyword!=null)
+  {
+      model.addAttribute("societe", societeService.findbyName(keyword));
+  }
+else {
+
+
+      List<Societe> societe = societeService.afficher();
+      model.addAttribute("societe", societe);
+  }
+        return list_template;*/
+     /*   return findPaginated(1, "nom", "asc", model,keyword);
+
+    }
+
+    @GetMapping("/add")
+    public String add(Societe societe, Model model) {
+        model.addAttribute("societe", societe);
+        return add_template;
+    }
+
+
+    @PostMapping("/save")
+    public String save(@Validated @ModelAttribute("societe") Societe societe, BindingResult result, Model model) {
+        model.addAttribute("societe", societe);
+
+        if (result.hasErrors()) {
+            return add_template;
+        }
+        societeService.addSociete(societe);
+
+        return list_redirect;
+    }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable int id, Model model) {
+        societeService.supprimer(id);
+        return list_redirect;
+    }
+*/
+    /*
+    Partie Update
+     */
+  /*  @GetMapping("/find/{id}")
+    public String findById(@PathVariable int id, Model model) {
+        Societe societe = societeService.findSocietebyID(id);
+        model.addAttribute("societe", societe);
+        return edit_template;
+    }
+
+
+    @GetMapping("/update/{id}")
+    public String update(@PathVariable int id, Model model) {
+        Societe societe = societeService.findSocietebyID(id);
+
+        model.addAttribute("societe", societe);
+
+        return "societe/edit";
+    }
+
+    @PostMapping("/edit")
+    public String edit(@Validated @ModelAttribute("societe") Societe societe, BindingResult result, Model model) {
+
+        societeService.modifier(societe);
+
+        return list_redirect;
+    }
+/*
+
+Recerche
+ */
+/*
+    @GetMapping("/search")
+    public String recherche(@ModelAttribute("keyword") Societe societe, Model model) {
+        String keyword="";
+        model.addAttribute("keyword", keyword);
+       List<Societe>  societes=societeService.findbyName(keyword);
+        model.addAttribute("societe", societes);
+
+        return list_template;
+    }
+
+
+    @GetMapping("/page/{pageNo}")
+    public String findPaginated(@PathVariable (value = "pageNo") int pageNo,
+                                @RequestParam("sortField") String sortField,
+                                @RequestParam("sortDir") String sortDir,
+                                Model model,String keyword) {
+        int pageSize = 5;
+
+        Page<Societe> page = societeService.findPaginated(pageNo, pageSize, sortField, sortDir);
+        List<Societe> listEmployees = page.getContent();
+
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+        if(keyword!=null)
+        {
+            model.addAttribute("societe", societeService.findbyName(keyword));
+        }
+        else {
+            //List<Marque> marques = $marqueService.afficher();
+            model.addAttribute("societe", listEmployees);
+        }
+
+        return list_template;
+    }
+    */
+
+    }
+}

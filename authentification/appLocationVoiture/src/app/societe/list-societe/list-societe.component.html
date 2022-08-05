@@ -1,0 +1,38 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+      <h2 class="fw-bold" class="text-primary" class="text-center">Liste de Societes</h2>
+    </div>
+   
+
+    <input class ="form-control"type="text" name="nom" [(ngModel)]="nom" (ngModelChange)="Search()" placeholder="
+    Taper le nom Societe">
+    <div class="panel-body">
+      <table class="table table-striped-columns">
+
+        <thead>
+          <tr>
+            <th (click)="sort('nom')"> <i class="fa-solid fa-arrow-down-arrow-up"></i>Nom Societe &nbsp;</th>
+            <th>Adresse Societe</th>
+            <th>Email Societe</th>
+            <th>Telephone Societe</th>
+            <th>Site Web Societe</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let employee of employees | orderBy: key: reverse | paginate: {itemsPerPage:3,currentPage:p}; ">
+            <td>{{employee.nom}}</td>
+             <td>{{employee.adresse}}</td>
+             <td>{{employee.email}}</td>
+             <td>{{employee.tel}}</td>
+             <td>{{employee.site}}</td>
+            <td><button class="btn btn-danger" (click)="deleteEmployee(employee.id)"  >Supprimer</button>
+                <button (click)="updateEmployee(employee.id)" class="btn btn-info" style="margin-left: 10px">Modifier</button>
+                
+            </td>
+          </tr>
+        </tbody>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      </table>
+    </div>
+  </div>

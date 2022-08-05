@@ -1,0 +1,47 @@
+
+<div class="home">
+    <div class="header">
+      <h1>Statistiques</h1>
+      <div class="content">
+        <div class="total-task-chart">
+            <h2>Répartition Géographiques des agences </h2>
+          <div class="chart">
+            <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType"
+              [options]="doughnutChartOptions" [colors]="doughnutChartColor">
+            </canvas>
+          </div>
+          
+        </div>
+       
+         
+        </div>
+
+    </div>
+  </div>
+
+
+
+  <div class="home1">
+    <div class="header1">
+
+      <div class="content">
+        <div class="total-task-chart1">
+            <h2>Disponibilité des véhicules selon la couleur </h2>
+          <div >
+            <canvas baseChart [data]="barChartData" [labels]="barChartLabels" [chartType]="barChartType"
+              [options]="barChartOptions" [colors]="barChartColor"    [plugins]="barChartPlugins"
+              [legend]="barChartLegend">
+            </canvas>
+
+
+          </div>
+          
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+

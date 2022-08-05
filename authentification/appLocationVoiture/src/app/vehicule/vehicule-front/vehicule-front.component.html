@@ -1,0 +1,22 @@
+
+ <input class ="form-control"type="text" name="nom" [(ngModel)]="nom" (ngModelChange)="Search()" placeholder="
+ Taper le nom Véhicule">
+ <div class="panel-body">
+   
+
+<ol class="list-group list-group-numbered" *ngFor="let employee of employees | orderBy: key: reverse | paginate: {itemsPerPage:3,currentPage:p}; ">
+    <li class="list-group-item d-flex justify-content-between align-items-start">
+      <div class="ms-2 me-auto" >
+        <div class="fw-bold" (click)="sort('nom')">{{employee.nom}}</div>
+    <div> {{employee.matricule}} </div>  
+    <div>  {{employee.color}}</div>  
+        <div>  {{employee.numChassis}}</div>  
+     <div>{{employee.dateDebService}}</div>  
+      </div>
+      <span class="badge bg-primary rounded-pill">   {{employee.color}}</span>
+    </li>
+    
+    
+  </ol>
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+ </div>

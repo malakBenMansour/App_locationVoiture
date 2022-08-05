@@ -1,0 +1,149 @@
+<nav class="navbar navbar-dark bg-dark fixed-top">
+  <a class="navbar-brand" href="#">Application Location Voiture</a>
+ 
+      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+ 
+  
+  
+  <div class="container-fluid">
+      <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Application Location Voiture</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+          
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Gestion Boites</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" routerLink="boites" class="nav-link" routerLinkActive="active" *ngIf="admin"></a>Liste Boites</li>
+              
+              <li><a  class="dropdown-item" routerLink="addBoite" class="nav-link" routerLinkActive="active" *ngIf="admin"></a>Ajouter une boite</li>
+              <li><a  class="dropdown-item" routerLink="boitefront" class="nav-link" routerLinkActive="active" *ngIf="!admin"></a>Nos Boites véhicules disponibles</li>
+             
+            </ul>
+          </li>
+
+
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Gestion Categories</a>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" routerLink="categories" class="nav-link" routerLinkActive="active"  *ngIf="admin"></a>Liste Categories</li>
+      
+      <li><a  class="dropdown-item" routerLink="addCategorie" class="nav-link" routerLinkActive="active"  *ngIf="admin"></a>Ajouter une Categorie</li>
+      <li><a  class="dropdown-item" routerLink="categoriefront" class="nav-link" routerLinkActive="active"  *ngIf="!admin"></a>Catégories véhicules </li>
+    </ul>
+  </li>
+
+
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Gestion Energies</a>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" routerLink="energies" class="nav-link" routerLinkActive="active"   *ngIf="admin"></a>Liste Energies</li>
+      
+      <li><a  class="dropdown-item" routerLink="addEnergie" class="nav-link" routerLinkActive="active"   *ngIf="admin" ></a>Ajouter une Energie</li>
+      <li><a  class="dropdown-item" routerLink="energiefront" class="nav-link" routerLinkActive="active"  *ngIf="!admin"></a>Energies véhicules </li>
+ 
+    </ul>
+  </li>
+
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Gestion Marques</a>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" routerLink="marques" class="nav-link" routerLinkActive="active" *ngIf="admin"></a>Liste Marques</li>
+      
+      <li><a  class="dropdown-item" routerLink="addMarque" class="nav-link" routerLinkActive="active" *ngIf="admin" ></a>Ajouter une Marque</li>
+      <li><a  class="dropdown-item" routerLink="marquefront" class="nav-link" routerLinkActive="active"  *ngIf="!admin"></a>Marques véhicules </li>
+    </ul>
+  </li>
+
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Gestion Societes</a>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" routerLink="societes" class="nav-link" routerLinkActive="active"  *ngIf="admin"></a>Liste Societes</li>
+      
+      <li><a  class="dropdown-item" routerLink="addSociete" class="nav-link" routerLinkActive="active" *ngIf="admin" ></a>Ajouter une Societe</li>
+      <li><a  class="dropdown-item" routerLink="pdfsocietes" class="nav-link" routerLinkActive="active"  *ngIf="admin"></a>Export Societes</li>
+      <li><a  class="dropdown-item" routerLink="societefront" class="nav-link" routerLinkActive="active" *ngIf="!admin"></a>Nos Societes</li>
+   
+    </ul>
+  </li>
+
+
+
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Gestion Agences</a>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" routerLink="agences" class="nav-link" routerLinkActive="active" *ngIf="admin"></a>Liste Agences</li>
+      
+      <li><a  class="dropdown-item" routerLink="addAgence" class="nav-link" routerLinkActive="active" *ngIf="admin"></a>Ajouter une Agence</li>
+      <li><a  class="dropdown-item" routerLink="agencefront" class="nav-link" routerLinkActive="active" *ngIf="!admin"></a>Nos Agences</li>
+     
+    </ul>
+  </li>
+
+
+
+
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Gestion Modeles</a>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" routerLink="modeles" class="nav-link" routerLinkActive="active" *ngIf="admin"></a>Liste Modeles</li>
+      
+      <li><a  class="dropdown-item" routerLink="addModele" class="nav-link" routerLinkActive="active" *ngIf="admin"></a>Ajouter un Modele</li>
+      <li><a  class="dropdown-item" routerLink="modelefront" class="nav-link" routerLinkActive="active" *ngIf="!admin"></a>Modeles Vehicules</li>
+    </ul>
+  </li>
+
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Gestion Vehicules</a>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" routerLink="vehicules" class="nav-link" routerLinkActive="active" *ngIf="!admin"></a>Liste Vehicules</li>
+      
+      <li><a  class="dropdown-item" routerLink="addVehicule" class="nav-link" routerLinkActive="active" *ngIf="admin"></a>Ajouter une Vehicule</li>
+      <li><a  class="dropdown-item" routerLink="vehiculefront" class="nav-link" routerLinkActive="active" *ngIf="!admin"></a>Nos Véhicules</li>
+    </ul>
+  </li>
+
+
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Statistiques</a>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" routerLink="stat" class="nav-link" routerLinkActive="active"></a>Stats</li>
+      
+        
+    </ul>
+  </li>
+
+  <div class="btn-group" role="group" aria-label="Basic example">
+    <button type="button" class="btn btn-primary" routerLink="login"  *ngIf="!isLoggedIn">Login </button>
+    
+    <button type="button" class="btn btn-secondary" routerLink="register"  *ngIf="!isLoggedIn">register </button>
+    
+
+  <ul *ngIf="isLoggedIn">
+
+    <button type="button" class="btn btn-primary" (click)="logout()">Logout</button>
+    </ul>
+
+</div>
+
+
+
+  
+        </ul>
+        
+      </div>
+    </div>
+
+
+
+         
+  </div>
+  
+ 
+</nav>
